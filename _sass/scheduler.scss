@@ -116,7 +116,7 @@ textarea {
   display: flexbox;
 
   .selector {
-    max-height: 50vh; 
+    max-height: 70vh; 
     overflow: auto;
     list-style-type: none;
 
@@ -131,6 +131,7 @@ textarea {
       list-style-type: none;
 
       li {
+        
 
         button {
           padding: 1vw;
@@ -138,9 +139,6 @@ textarea {
           width: 40vw;
 
           font-size: 1vw;
-
-
-
         }
 
       }
@@ -171,8 +169,6 @@ textarea {
     padding: 1vw;
     border: solid 0.5vw lightgrey;
 
-
-
   }
 }
 
@@ -181,3 +177,12 @@ textarea {
   background-color: transparent;
   border: none;
 }
+
+.recommend {
+  background-color: lightpink;
+}
+
+.chosen {
+  background-color: lightgreen;
+}
+

@@ -32,12 +32,13 @@
     <!-- Page Content -->
     <main id="content" class="main-content" role="main">
 
-      <script src="../assets/js/selectionCreator.js"></script>
+      <script src="../assets/js/coursePlanner.js"></script>
 
 
 <div id="schedule-content">
 
     <div id="step1">
+        <h1>Choose Major</h1>
         <div class="selector" id="major">
             <input class="search" type="text" id="major-search" placeholder="Search Major Name">
             <ul id="major-list"></ul>
@@ -48,6 +49,7 @@
 
 
     <div id="step2" style="display:none;">
+        <h1>Choose Minor</h1>
         <div class="selector" id="minorr" >
             <input class="search" type="text" id="minor-search" placeholder="Search Minor Name">
             <ul id="minor-list"></ul>
@@ -59,6 +61,7 @@
 
     <!-- INPUT PAST COURSES -->
     <div id="step3" style="display:none;">
+        <h1>Input Past Courses</h1>
         <div class="chosen-courses" id="past-course-list" ></div>
 
         <div class="upload">
@@ -76,9 +79,32 @@
         <button id="step3-next">Next</button>
     </div>
 
-    <!--  -->
+    <!-- COMPLETE REAUIREMENTS -->
     <div id="step4" style="display:none;">
+        <h1>Complete Requirements</h1>
         <div id="requirements"></div>
+
+        <button id="step4-back">Back</button>
+        <button id="step4-next">Next</button>
+    </div>
+
+    <!-- ARRANGE COURSES -->
+    <div id="step5" style="display:none;">
+        <h1>Complete Requirements</h1>
+        <div id="requirements"></div>
+
+        <button id="step5-back">Back</button>
+        <button id="step5-next">Next</button>
+    </div>
+
+    <!-- ARRANGE COURSES -->
+    <div id="step6" style="display:none;">
+        <h1>Completed Schedule</h1>
+        <div id="schedule"></div>
+        <div id="download"></div>
+
+        <button id="step6-back">Back</button>
+        <button id="step6-next">Next</button>
     </div>
 
 </div>

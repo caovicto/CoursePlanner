@@ -1,13 +1,20 @@
 var majors = new Array();   // all avaiable majors files
-var userMajors = new Array();   // files names for requiested majors
+// var user.majors = new Array();   // files names for requiested majors
 
 var minors = new Array();   // all avaiable minor files
-var userMinors = new Array();   // files names for requested minor
+// var user.minors = new Array();   // files names for requested minor
 
 var requirements = new Map();   // program name to extracted json requirements
-var userRequirements = new Map();    // filtered map of requirements
+var requirementsLoaded = false;
 
-var pastCourses = new Set();    // names of past user courses
+var user = {
+    'majors': new Array(),
+    'minors': new Array(),
+    'requirements': new Map(),
+    'pastCourses': new Set(),
+    'addedCourses': new Set()
+};
+
 var shownCourses = new Set();   // showing course search
 
 var courses = new Map();    // map of all courses
@@ -32,10 +39,6 @@ $(document).ready(function () {
 
     // PAST COURSES
     loadPastCoursesFunctions();
-
-   
-
-
 
 });
 
@@ -152,20 +155,20 @@ function loadMajorFunctions()
             $(".major-button").click(function () 
             {
                 const majorID = $(this).attr("id");
-                const index = userMajors.indexOf(majorID);
+                const index = user.majors.indexOf(majorID);
                 console.log(index, majors[majorID]);
 
                 if (index > -1) 
                 {
-                    userMajors.splice(index, 1);
-                    $(this).css('background-color', 'lightgrey');
+                    user.majors.splice(index, 1);
+                    $(this).removeClass("chosen");
                 }
                 else 
                 {
-                    userMajors.push(majorID);
-                    $(this).css('background-color', 'lightgreen');
+                    user.majors.push(majorID);
+                    $(this).addClass("chosen");
                 }
-                console.log("majors", userMajors);
+                console.log("majors", user.majors);
             });
         }
     });
@@ -173,7 +176,7 @@ function loadMajorFunctions()
 
     $("#step1-next").click(function () 
     {
-        if (!userMajors.length) {
+        if (!user.majors.length) {
             alert("Choose a major");
         }
         else {
@@ -212,18 +215,18 @@ function loadMinorFunctions()
             $(".minor-button").click(function () 
             {
                 const minorID = $(this).attr("id");
-                const index = userMinors.indexOf(minorID);
+                const index = user.minors.indexOf(minorID);
                 console.log(index, minors[minorID]);
 
                 if (index > -1) {
-                    userMinors.splice(index, 1);
-                    $(this).css('background-color', 'lightgrey');
+                    user.minors.splice(index, 1);
+                    $(this).removeClass("chosen");
                 }
                 else {
-                    userMinors.push(minorID);
-                    $(this).css('background-color', 'lightgreen');
+                    user.minors.push(minorID);
+                    $(this).addClass("chosen");
                 }
-                console.log("minors", userMinors);
+                console.log("minors", user.minors);
             });
         }
     });
@@ -364,23 +367,34 @@ async function addPastCourses(scrapedCourses)
 
 async function addPastCourse(course) 
 {
-    await getCourse(course).then((result) => 
+    const result = await getCourse(course);
+
+    if (result && !user.pastCourses.has(course)) 
     {
-        if (result && !pastCourses.has(course)) 
+        user.pastCourses.add(course);
+        $("#past-course-list").append(
+            "<div class='past-course' id='" + course + "'>" + course + "<button class='remove' id='" + course + "'>X</button></div class='course'>"
+        )
+
+        while (!requirementsLoaded)
         {
-            pastCourses.add(course);
-            $("#past-course-list").append(
-                "<div class='past-course' id='" + course + "'>" + course + "<button class='remove' id='" + course + "'>X</button></div class='course'>"
-            )
+            await sleep(500);
         }
-    });
+
+        $("button[id='"+course+"'][class*='course-button']").addClass("chosen")
+            .attr("pastCourse", "true");
+    }
+
 
     $(".remove").click(function () 
     {
         var code = $(this).attr("id");
-        console.log("remove from past courses ", code, pastCourses);
+        console.log("remove from past courses ", code, user.pastCourses);
         $(this).parent().remove();
-        pastCourses.delete(code);
+        user.pastCourses.delete(code);
+
+        $("button[id='"+course+"]'").removeClass("chosen")
+            .removeAttr("pastCourse");
     });
 }
 
@@ -401,7 +415,7 @@ async function getCourse(code)
 // REQUIREMENTS
 async function removeRequirements()
 {
-    userRequirements.clear();
+    user.requirements.clear();
     $("#requirements").empty();
 }
 
@@ -409,11 +423,11 @@ async function addRequirements()
 {
     // gather programs
     var programFiles = [];
-    for (let major of userMajors) 
+    for (let major of user.majors) 
     {
         programFiles.push("assets/data/majors/" + majors[major])
     }
-    for (let minor of userMinors) 
+    for (let minor of user.minors) 
     {
         programFiles.push("assets/data/minors/" + minors[minor])
     }
@@ -428,9 +442,13 @@ async function addRequirements()
     await loadUserRequirements();
 
     // add all user requirements to div
-    await addUserRequiremnts();
+    await addUserRequirements();
 
-    // console.log(userRequirements);
+    // enable buttons
+    enableCourseButtons();
+
+    requirementsLoaded = true;
+
 }
 
 async function loadProgram(file) 
@@ -464,9 +482,9 @@ async function loadUserRequirements()
             if (!requirement.name.includes("University Residency") && 
                 !requirement.name.includes("University Diversity Distribution") && 
                 !requirement.name.includes("GPA"))
-                userRequirements.set(requirement.name, requirement.requirement);
+                user.requirements.set(requirement.name, requirement.requirement);
         }
-        // console.log(userRequirements);
+        // console.log(user.requirements);
     }
 }
 
@@ -485,14 +503,14 @@ async function checkValidCourses(courseList)
     return valid;
 }
 
-async function addUserRequiremnts()
+async function addUserRequirements()
 {
     while (!coursesLoaded)
     {
         await sleep(500);
     }
 
-    for (let [key, value] of  userRequirements.entries()) 
+    for (let [key, value] of  user.requirements.entries()) 
     {
         var reqElement = $(document.createElement('div'))
             .attr("id", key)
@@ -538,7 +556,8 @@ async function addUserRequiremnts()
    
 }
 
-function capitalize(string) {
+function capitalize(string) 
+{
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -550,38 +569,50 @@ async function createCourseButton(code)
     li.attr("id", code);
 
     var button = $(document.createElement('button'))
+        .attr("class", "course-button")
         .attr("id", code)
         .text(capitalize(code));
-
-    console.log(capitalize(code));
 
     var course = await getCourse(code);
     
     if (course) 
     {
-
-        // try
-        // {
-        //     
-
         button.attr("name", course.name)
             .attr("credits", course.credits)
             .attr("description", course.description)
-            .attr("semester", course.semester);
-    
-        // }
-        // catch (err)
-        // {
-        //     console.log(code, "does not exist");
-        // }
-
-
+            .attr("semester", course.semester)
+            .attr("prerequisite", course.prerequisite);
     }
 
     li.append(button);
     return li;
+}
+
+function enableCourseButtons()
+{
+    $(".course-button").click(function () 
+    {
+        if (!$(this).attr("pastCourse") && $(this).attr("id").length < 50)
+        {
+            const courseCode = $(this).attr("id");
+
+            if (user.addedCourses.has(courseCode))
+            {
+                user.addedCourses.delete(courseCode);
+                $("button[id='"+courseCode+"']").removeClass("chosen");
+            }
+            else
+            {
+                user.addedCourses.add(courseCode);
+                $("button[id='"+courseCode+"']").addClass("chosen");            
+            }
+    
+            console.log("courses", user.addedCourses);
+        }
+    });
 
 }
+
 
 
 
