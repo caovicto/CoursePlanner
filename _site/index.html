@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <!-- Google Analytics -->
+    
+
+    <!-- Settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- <link rel="icon" type="image/png" href="/assets/main/favicon.png"/> -->
+    
+  </head>
+
+  <body>
+    <!-- Main JS Includes: JQuery 3.5.1 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    
+    <!-- Page Header -->
+    <header class="page-header">
+      
+    </header>     
+
+    <!-- <div id="loading">LOADING</div> -->
+
+
+
+    <!-- Page Content -->
+    <main id="content" class="main-content" role="main">
+
+      <script src="../assets/js/selectionCreator.js"></script>
+
+
+<div id="schedule-content">
+
+    <div id="step1">
+        <div class="selector" id="major">
+            <input class="search" type="text" id="major-search" placeholder="Search Major Name">
+            <ul id="major-list"></ul>
+        </div>
+
+        <button id="step1-next">Next</button>
+    </div>
+
+
+    <div id="step2" style="display:none;">
+        <div class="selector" id="minorr" >
+            <input class="search" type="text" id="minor-search" placeholder="Search Minor Name">
+            <ul id="minor-list"></ul>
+        </div>
+
+        <button id="step2-back">Back</button>
+        <button id="step2-next">Next</button>
+    </div> 
+
+    <!-- INPUT PAST COURSES -->
+    <div id="step3" style="display:none;">
+        <div class="chosen-courses" id="past-course-list" ></div>
+
+        <div class="upload">
+            <textarea id="course-input"  name="someName" col="100" rows="100" 
+                placeholder="Don't worry about formatting or capitalization, feel free to just copy and paste your degree navigator information."></textarea>
+            <button id="past-courses-submit">Submit</button>
+        </div>
+
+        <div class="selector" id="past-course-selector">
+            <input class="search" filterMin="2" type="text" id="past-course-search" placeholder="Search Course Code">
+            <ul id="add-past-course"></ul>
+        </div>
+
+        <button id="step3-back">Back</button>
+        <button id="step3-next">Next</button>
+    </div>
+
+    <!--  -->
+    <div id="step4">
+        <div class="selector" id="requirements" >
+        </div>
+    </div>
+
+</div>
+
+    </main>
+
+  </body>
+
+
+</html>

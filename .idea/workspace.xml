@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="13f031af-082a-4715-b16b-214759f69cf6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CoursePlanner2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CoursePlanner2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Accounting_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Actuarial_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Advertising_Creative_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Advertising_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Agribusiness_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Agriculture_Food_and_Natural_Resources_Education_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Animal_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Anthropology_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Anthropology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Apparel_and_Textile_Design_BFA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Apparel_and_Textiles_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Applied_Engineering_Sciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Arabic_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Arabic_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Art_Education_BFA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Art_History_and_Visual_Culture_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Arts_and_Humanities_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Astrophysics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Athletic_Training_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Biochemistry_and_Molecular_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Biochemistry_and_Molecular_Biology_Biotechnology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Biological_Science_Interdepartmental_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Biomedical_Laboratory_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Biosystems_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chemical_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chemical_Physics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chemistry_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chemistry_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Child_Development_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chinese_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Chinese_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Civil_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Clinical_Laboratory_Sciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Communication_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Communication_Leadership_and_Strategy_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Comparative_Culture_and_Politics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Composition_BMUS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Computational_Data_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Computational_Mathematics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Computational_Mathematics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Computer_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Computer_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Construction_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Criminal_Justice_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Crop_and_Soil_Sciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Data_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Dietetics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Early_Care_and_Education_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Economic_Geography_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Economics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Economics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Education_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Electrical_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/English_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Entomology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Biology_Microbiology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Biology_Plant_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Biology_Zoology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Economics_and_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Geography_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Geosciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Environmental_Studies_and_Sustainability_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Experience_Architecture_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Film_Studies_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Finance_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Fisheries_and_Wildlife_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Food_Industry_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Food_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Forestry_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/French_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Games_and_Interactive_Media_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Genomics_and_Molecular_Genetics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Geographic_Information_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Geological_Sciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/German_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/German_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Global_History_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Global_Studies_in_the_Arts_and_Humanities_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Global_Studies_in_the_Arts_and_Humanities_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Global_and_International_Studies_Social_Science_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Graphic_Design_BFA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/History_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/History_Education_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Horticulture_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Hospitality_Business_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Capital_and_Society_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Development_and_Family_Studies_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Development_and_Family_Studies_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Geography_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Human_Resource_Management_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Humanities_Prelaw_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Information_Science_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Integrative_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Interdisciplinary_Humanities_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Interdisciplinary_Studies_in_Social_Science_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Interdisciplinary_Studies_in_Social_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Interdisciplinary_Studies_in_Social_Science_Education_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Interior_Design_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/International_Relations_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Japanese_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Japanese_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Jazz_Studies_BMUS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Journalism_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Kinesiology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_Computer_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_Earth_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_Environmental_Science_and_Management_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_History_Philosophy_and_Sociology_of_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/LB_Physical_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Landscape_Architecture_BLA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Linguistics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Management_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Marketing_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Materials_Science_and_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Mathematics_Advanced_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Mathematics_Advanced_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Mathematics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Mathematics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Mechanical_Engineering_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Media_and_Information_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Medical_Laboratory_Science_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Microbiology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Music_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Music_Education_BMUS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Music_Performance_BMUS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Neuroscience_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Nursing_BSN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Nutritional_Sciences_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Packaging_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Philosophy_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Physical_Science_Interdepartmental_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Physics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Physics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Physiology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Plant_Biology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Political_Science_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Political_Science_Prelaw_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Political_Theory_and_Constitutional_Democracy_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Professional_and_Public_Writing_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Psychology_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Psychology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Public_Policy_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Public_Relations_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Quantitative_Risk_Analytics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Religious_Studies_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Russian_ADDU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Russian_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Social_Relations_and_Policy_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Social_Work_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Sociology_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Sociology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Spanish_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Special_Education_Learning_Disabilities_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Statistics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Statistics_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Studio_Art_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Studio_Art_BFA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Supply_Chain_Management_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Sustainable_Parks_Recreation_and_Tourism_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Theatre_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Theatre_BFA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Urban_and_Regional_Planning_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Veterinary_Nursing_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Women_s_and_Gender_Studies_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/World_Politics_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Zoology_BA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/majors/Zoology_BS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Actuarial_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Advertising_Analytics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/African_American_and_African_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/African_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Agribusiness_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Agronomy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/American_Indian_and_Indigenous_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Animation_and_Comics_Storytelling_in_Media_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Anthropology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Applied_Development_in_International_Agriculture_and_Natural_Resources_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Arabic_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Art_History_and_Visual_Culture_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Art_Photography_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Arts_and_Cultural_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Asian_Pacific_American_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Asian_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Beverage_Science_and_Technology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Bioethics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Broadcast_Journalism_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Chicano_Latino_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Chinese_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Cities_Environment_Design_and_Society_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Classical_and_Ancient_Mediterranean_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Coaching_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Cognitive_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Comic_Art_and_Graphic_Novels_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Communicative_Science_and_Disorders_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Computational_Mathematics_Science_and_Engineering_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Computer_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Conservation_Recreation_and_Environmental_Enforcement_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Creative_Writing_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Dance_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Data_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Defense_Studies_and_Leadership_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Digital_Humanities_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Documentary_Production_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Economics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Educational_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Energy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Entomology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Entrepreneurship_and_Innovation_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Environment_and_Health_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Environmental_Economics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Environmental_and_Sustainability_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/European_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Fiction_Filmmaking_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Film_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Food_Industry_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Food_Processing_and_Technology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Forestry_Field_Applications_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Forestry_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/French_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Game_Design_and_Development_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Geographic_Information_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Geography_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/German_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Global_Public_Health_and_Epidemiology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Global_Studies_in_Social_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Global_Studies_in_the_Arts_and_Humanities_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Graphic_Design_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Health_Promotion_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/History_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Horticulture_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Hospitality_Business_Real_Estate_and_Investment_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Human_Behavior_and_Social_Services_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Indian_and_South_Asian_Languages_and_Cultures_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Information_Technology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Information_and_Communication_Technology_and_Development_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Insurance_and_Risk_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/International_Business_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/International_Development_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Italian_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Japanese_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Jazz_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Jewish_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Korean_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/LB_History_Philosophy_and_Sociology_of_Science_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Latin_American_and_Caribbean_Study_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Law_Justice_and_Public_Policy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Leadership_Organization_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Leadership_in_Integrated_Learning_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Lesbian_Gay_Bisexual_Transgender_Queer_and_Sexuality_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Linguistics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Marine_Ecosystem_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Materials_Science_and_Engineering_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Mathematics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Media_Photography_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Museum_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Music_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Musical_Theatre_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Muslim_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Peace_and_Justice_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Pharmacology_and_Toxicology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Philosophy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Philosophy_and_Law_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Piano_Pedagogy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Plant_Animal_and_Microbial_Biotechnology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Political_Economy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Popular_Culture_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Portuguese_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Public_Relations_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Race_and_Ethnicity_in_the_United_States_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Religion_in_the_Americas_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Religious_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Retail_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Russian_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Russian_and_Eurasian_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sales_Leadership_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Science_Technology_Environment_and_Public_Policy_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Security_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Social_Science_Quantitative_Data_Analytics_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sociology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Spanish_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sports_Business_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sports_Journalism_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sustainable_Agriculture_and_Food_Systems_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sustainable_Bioproducts_Science_and_Technology_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Sustainable_Natural_Resource_Recreation_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Teaching_English_to_Speakers_of_Other_Languages_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Technology_Systems_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Theatre_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Turfgrass_Management_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Urban_and_Community_Forestry_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Women_s_and_Gender_Studies_MNUN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_data/minors/Youth_and_Society_MNUN.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="3c3dc55c-e421-4cfd-a856-def0a28906f2" />
+  <component name="ProjectId" id="1fxtN4lJAtK2GLsaNnHtfaZjXd1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../NNProjects" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/data" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="courseScraper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CoursePlanner2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assets/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/assets/scripts/courseScraper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.courseScraper" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="13f031af-082a-4715-b16b-214759f69cf6" name="Default Changelist" comment="" />
+      <created>1597171529505</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597171529505</updated>
+      <workItem from="1597171531235" duration="12872000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1874" height="568" key="GridCell.Tab.0.bottom" timestamp="1597188561096">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="568" key="GridCell.Tab.0.bottom/67.34.1853.1046/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597188561096" />
+    <state width="1874" height="568" key="GridCell.Tab.0.center" timestamp="1597188561096">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="568" key="GridCell.Tab.0.center/67.34.1853.1046/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597188561096" />
+    <state width="1874" height="568" key="GridCell.Tab.0.left" timestamp="1597188561096">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="568" key="GridCell.Tab.0.left/67.34.1853.1046/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597188561096" />
+    <state width="1874" height="568" key="GridCell.Tab.0.right" timestamp="1597188561096">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="568" key="GridCell.Tab.0.right/67.34.1853.1046/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597188561096" />
+    <state x="2543" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597180305982">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2543" y="239" width="672" height="678" key="search.everywhere.popup/67.34.1853.1046/1920.0.1920.1080@1920.0.1920.1080" timestamp="1597180305982" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CoursePlanner2$courseScraper.coverage" NAME="courseScraper Coverage Results" MODIFIED="1597187750836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assets/scripts" />
+  </component>
+</project>
