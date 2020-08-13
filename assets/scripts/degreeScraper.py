@@ -72,7 +72,7 @@ class Scraper:
             # write program info to file
             fileName = '_'.join(re.findall(r"(\w+)", program['name']))
 
-            file = open('../files/minors/'+fileName+'.json', 'w+')
+            file = open('../data/minors/'+fileName+'.json', 'w+')
             json.dump(program, file)
 
             print("Created ", colored(fileName, 'green'))
@@ -105,7 +105,7 @@ class Scraper:
                     parsedRow = row.split(' from ')
                     reqSet = {}
 
-                    reqSet['type'] = "credit" if parsedRow[0].find('credit') != -1 else "credit"
+                    reqSet['type'] = "credit" if parsedRow[0].find('credit') != -1 else "course"
                     reqSet['number'] = parsedRow[0].split(' ')[0]
 
                     reqSet['courses'] = (parsedRow[1].split(','))
