@@ -210,6 +210,56 @@ textarea {
   background-color: lightgreen;
 }
 
+.info {
+  width: 2vw !important;
+  height: 2vw !important;
+  padding: 1vw;
+  margin: 0;
+  border-radius: 1vw;
+
+  font-size: 1vw;
+}
+
+.modal {
+
+  .modal-background {
+    position: fixed;
+    display: table;
+
+    margin: 0;
+    padding: 0;
+
+    top:0;
+    left:0;
+  
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(128, 128, 128, 0.288);
+  }
+
+  .modal-content {
+    display: table-cell;
+    vertical-align: middle;
+   
+    padding: 10vw;
+    height: auto;
+
+    td, th {
+      border: 0.2vw solid #dddddd;
+      text-align: left;
+      padding: 1vw;
+    }
+    
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  }
+}
+
 
 #requirement-nav {
   position: fixed;

@@ -45,7 +45,8 @@ $(document).ready(function () {
 
 
 // Helper functions
-function sleep(ms) {
+function sleep(ms) 
+{
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -507,13 +508,8 @@ async function checkValidCourses(courseList)
     return valid;
 }
 
-async function addUserRequirements()
+async function loadRequirements()
 {
-    while (!coursesLoaded)
-    {
-        await sleep(500);
-    }
-
     for (let [key, value] of  user.requirements.entries()) 
     {
         var reqElement = $(document.createElement('div'))
@@ -555,8 +551,83 @@ async function addUserRequirements()
         }
 
         if (reqElement.find('button').length !== 0)
+        {
             $("#requirements").append(reqElement);
+
+            var reqLink = $(document.createElement('div'))
+                .addClass("requirement-link")
+                .attr("value", key)
+                .text(key);
+
+            $("#requirement-nav").append(reqLink);
+        }
     }
+}
+
+async function addUserRequirements()
+{
+    while (!coursesLoaded)
+    {
+        await sleep(500);
+    }
+
+    await loadRequirements();
+
+    $(".info").click( function() {
+        var courseElement = $(this).siblings()[0];
+        console.log(courseElement);
+
+        const code = $(courseElement).attr("id");
+        const name = $(courseElement).attr("name").trim();
+        const credits = $(courseElement).attr("credits").trim();
+        const description = $(courseElement).attr("description").trim();
+        const semester = $(courseElement).attr("semester").trim();
+        const prerequisite = $(courseElement).attr("prerequisite").trim();
+
+        var infoTable = $(document.createElement('table'))
+            .text(code)
+            .append(`
+                <tr>
+                    <th>name</th>
+                    <th>`+name+`</th>
+                </tr>
+                <tr>
+                    <th>credits</th>
+                    <th>`+credits+`</th>
+                </tr>
+                <tr>
+                    <th>semester</th>
+                    <th>`+semester+`</th>
+                </tr>
+                <tr>
+                    <th>prerequisite</th>
+                    <th>`+prerequisite+`</th>
+                </tr>
+                <tr>
+                    <th>description</th>
+                    <th>`+description+`</th>
+                </tr>  
+            `);
+        
+        $("#info-modal-content").empty();    
+        $("#info-modal-content").append(infoTable);
+
+        $("#info-modal").show();
+
+    });
+
+    $(".modal-background").click( function() {
+        $("#info-modal").hide();
+    });
+    
+
+    // $("requirement-link").click( function() {
+    //     var reqDiv = $("requirement-link").attr("value");
+
+    //     $('html, body').animate({
+    //         scrollTop: $("#"+reqDiv).offset().top
+    //     });
+    // });
 
    
 }
@@ -587,9 +658,16 @@ async function createCourseButton(code)
             .attr("description", course.description)
             .attr("semester", course.semester)
             .attr("prerequisite", course.prerequisite);
+
+        var info = $(document.createElement('button'))
+            .attr("name", code)
+            .addClass("info")
+            .text("?");
+
+        li.append(info);
     }
 
-    li.append(button);
+    li.prepend(button);
     return li;
 }
 
