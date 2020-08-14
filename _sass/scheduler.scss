@@ -116,27 +116,44 @@ textarea {
   display: flexbox;
 
   .selector {
+    display: block;
+
     max-height: 70vh; 
     overflow: auto;
     list-style-type: none;
 
-    border: 1vw solid grey;
+    padding: 1vw;
+
+    border: 0.1vw solid grey;
 
     .search {
+      display: block;
+      margin: auto auto;
+      text-align: center;
+
       height: 2vw;
+      width: 100%;
     }
 
     ul {
-      border: 1vw solid rgba(128, 128, 128, 0.411);
-      list-style-type: none;
+      display: block;
+      margin: auto auto;
 
+      padding: 0;
+      border: 0.5vw solid rgba(128, 128, 128, 0.411);
+      list-style-type: none;
+      
       li {
-        
+        display: block;
+        margin: auto auto;
 
         button {
+          display: block;
+          margin: auto auto;
+
           padding: 1vw;
           height: auto;
-          width: 40vw;
+          width: 100%;
 
           font-size: 1vw;
         }
@@ -156,18 +173,25 @@ textarea {
   background-color: lightgrey;
 }
 
-.chosen-courses {
-  max-height: 20vh; 
-  overflow: auto;
+.past-course {
+  display: inline-block;
+  background-color: lightgrey;
+  border: 0.1vw solid grey;
+}
 
-  border: 1vw solid rgba(128, 128, 128, 0.411);
+.chosen-courses {
+  // padding: 1vw;
+  border: 0.1vw solid rgba(128, 128, 128, 0.411);
   display: flexbox;
 
-  .course {
-    width: auto;
+  .past-course {
+    margin: 1vw;
+    padding: 1vw;
+    height: auto;
+    width: auto; 
 
     padding: 1vw;
-    border: solid 0.5vw lightgrey;
+    border: solid 0.1vw lightgrey;
 
   }
 }
@@ -186,3 +210,16 @@ textarea {
   background-color: lightgreen;
 }
 
+
+#requirement-nav {
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
+
+  list-style-type: none;
+
+  ul {
+    text-align: right;
+    
+  }
+}

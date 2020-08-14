@@ -73,46 +73,50 @@ function searchFunction()
 
     $('.search, #past-course-search').keyup(function (event) 
     {
-        // console.log(this, "key up ", event.which)
-        var filterList = $(this).parent().children('ul')[0];
-        var listElements = $(filterList).children('li');
-        var filter = $(this).val().toUpperCase();
+        if ($("#past-course-search").is(':visible'))
+        {
+            // console.log(this, "key up ", event.which)
+            var filterList = $(this).parent().children('ul')[0];
+            var listElements = $(filterList).children('li');
+            var filter = $(this).val().toUpperCase();
 
-        if (filter.length < $(this).attr("filterMin")) 
-        {
-            // console.log("no filter");
-            for (let course of shownCourses) 
+            if (filter.length < $(this).attr("filterMin")) 
             {
-                $(course).hide();
-            }
-
-            shownCourses.clear();
-        }
-        else if (filter.length == $(this).attr("filterMin") || (event.which == 8 || event.which == 46) || !shownCourses.size) 
-        {
-            // console.log("add");
-            for (let course of listElements) 
-            {
-                if ($(course).attr('id').startsWith(filter)) 
-                {
-                    $(course).show();
-                    shownCourses.add(course);
-                }
-            }
-        }
-        // filter
-        else 
-        {
-            // console.log("remove");
-            for (let course of shownCourses) 
-            {
-                if (!$(course).attr('id').startsWith(filter)) 
+                // console.log("no filter");
+                for (let course of shownCourses) 
                 {
                     $(course).hide();
-                    shownCourses.delete(course);
+                }
+
+                shownCourses.clear();
+            }
+            else if (filter.length == $(this).attr("filterMin") || (event.which == 8 || event.which == 46) || !shownCourses.size) 
+            {
+                // console.log("add");
+                for (let course of listElements) 
+                {
+                    if ($(course).attr('id').startsWith(filter)) 
+                    {
+                        $(course).show();
+                        shownCourses.add(course);
+                    }
+                }
+            }
+            // filter
+            else 
+            {
+                // console.log("remove");
+                for (let course of shownCourses) 
+                {
+                    if (!$(course).attr('id').startsWith(filter)) 
+                    {
+                        $(course).hide();
+                        shownCourses.delete(course);
+                    }
                 }
             }
         }
+       
     });
 }
 
@@ -373,7 +377,7 @@ async function addPastCourse(course)
     {
         user.pastCourses.add(course);
         $("#past-course-list").append(
-            "<div class='past-course' id='" + course + "'>" + course + "<button class='remove' id='" + course + "'>X</button></div class='course'>"
+            "<div class='past-course' id='" + course + "'>" + course + "<button class='remove' id='" + course + "'>X</button></div>"
         )
 
         while (!requirementsLoaded)
@@ -381,7 +385,7 @@ async function addPastCourse(course)
             await sleep(500);
         }
 
-        $("button[id='"+course+"'][class*='course-button']").addClass("chosen")
+        $("button[id='"+course+"'][class='course-button']").addClass("chosen")
             .attr("pastCourse", "true");
     }
 
@@ -515,7 +519,8 @@ async function addUserRequirements()
         var reqElement = $(document.createElement('div'))
             .attr("id", key)
             .text(key)
-            .attr("class", "selector");
+            .attr("class", "selector")
+            .css("max-height", "100%");
 
         for (var setID = 0; setID < value.length; setID++) 
         {
@@ -526,8 +531,8 @@ async function addUserRequirements()
 
             for (let courses of set) 
             {
-                setElement.attr("type", courses.type);
-                setElement.attr("number", courses.number);
+                setElement.attr("type", courses.type)
+                    .attr("number", courses.number);
 
                 if (await checkValidCourses(courses.courses))
                 {

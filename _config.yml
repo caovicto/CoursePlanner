@@ -1,4 +1,6 @@
 sass:
   style: compressed
   
-collections:
+# Serving
+url: "https://caovicto.github.io"
+baseurl: "/CoursePlanner2"

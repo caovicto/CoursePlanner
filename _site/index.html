@@ -26,8 +26,6 @@
 
     <!-- <div id="disclaimer">LOADING</div> -->
 
-
-
     <!-- Page Content -->
     <main id="content" class="main-content" role="main">
 
@@ -39,7 +37,7 @@
     <div id="step1">
         <h1>Choose Major</h1>
         <div class="selector" id="major">
-            <input class="search" type="text" id="major-search" placeholder="Search Major Name">
+            <input class="search" type="text" autocomplete="off" id="major-search" placeholder="Search Major Name">
             <ul id="major-list"></ul>
         </div>
 
@@ -50,7 +48,7 @@
     <div id="step2" style="display:none;">
         <h1>Choose Minor</h1>
         <div class="selector" id="minorr" >
-            <input class="search" type="text" id="minor-search" placeholder="Search Minor Name">
+            <input class="search" type="text" autocomplete="off" id="minor-search" placeholder="Search Minor Name">
             <ul id="minor-list"></ul>
         </div>
 
@@ -70,7 +68,7 @@
         </div>
 
         <div class="selector" id="past-course-selector">
-            <input class="search" filterMin="2" type="text" id="past-course-search" placeholder="Search Course Code">
+            <input class="search" autocomplete="off" filterMin="2" type="text" id="past-course-search" placeholder="Search Course Code">
             <ul id="add-past-course"></ul>
         </div>
 
@@ -81,6 +79,7 @@
     <!-- COMPLETE REAUIREMENTS -->
     <div id="step4" style="display:none;">
         <h1>Complete Requirements</h1>
+        <div id="requirement-nav"></div>
         <div id="requirements"></div>
 
         <button id="step4-back">Back</button>
