@@ -1,0 +1,399 @@
+@import "normalize";
+@import "rouge-github";
+@import "variables";
+
+
+@mixin large {
+  @media screen and (min-width: #{$large-breakpoint}) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (min-width: #{$medium-breakpoint}) and (max-width: #{$large-breakpoint}) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media screen and (max-width: #{$medium-breakpoint}) {
+    @content;
+  }
+}
+
+
+/**           WHOLE PAGE          **/
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #f5f5f52f;
+
+    transition: background-color .8s;
+
+    &:hover{
+      background-color: #f5f5f550;
+    }
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #f5f5f52f;
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+
+* {
+  box-sizing: border-box;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+}
+
+body {
+  height: 100%;
+}
+
+html {
+  background-color: $bg-color;
+}
+
+textarea {
+  display: block;
+  margin: 5vh auto 5vh;
+  height: 50vh;
+  width: 80%;
+  
+  border-color: rgba(255, 255, 255, 0.267);
+  border-style: solid;
+  border-radius: 0.5vw;
+  border-width: 0.2vw;
+
+  overflow: scroll;
+
+  &:focus{
+    outline: none !important;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: Bold;
+  color: $section-headings-color;
+}
+
+ul {
+  counter-reset: index;  
+  list-style-type: none; 
+  display: table;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: block;
+    margin: 0;
+
+    font-weight: bold;    
+    counter-increment: index; 
+
+    background-image: linear-gradient(to bottom, #5B5941, #fff4f4, #fff4f4, #5B5941);
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .btn {
+    margin: 0;
+  }
+}
+
+
+table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all; // For Firefox to horizontally scroll wider tables.
+  -webkit-overflow-scrolling: touch;
+
+  th {
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 1rem;
+    border: 0.1vw solid $table-border-color;
+  }
+} 
+
+
+/**           SEARCH CONTENT          **/
+
+.search {
+  padding: 5vh;
+
+  input {
+    text-align: center;
+    height: 5vh;
+    width: 100%;
+
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+
+    background: transparent;
+
+    &:focus{
+      outline: none !important;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  ul {
+    display: block;
+    max-height: 80vh;
+    overflow: auto;
+    
+  }
+
+}
+
+
+/**           CLICKY STUFFS          **/
+
+.btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+
+  border-style: solid;
+  border-width: 0.1vw;
+  border-radius: 0.3rem;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    text-decoration: none;
+
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+
+    cursor: pointer;
+  }
+
+  + .btn {
+    margin-left: 1rem;
+  }
+
+  @include large {
+    padding: 0.75rem 1rem;
+  }
+
+  @include medium {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  @include small {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+
+    + .btn {
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
+}
+
+.full {
+  width: 100%;
+}
+
+.selected {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.remove {
+  margin-left: 1vw;
+  background-color: transparent;
+  border: none;
+}
+
+.next {
+  position: fixed;
+  top: 45%;
+  right: 5%;
+
+  width: 2vw;
+  height: 2vw;
+
+  img {
+    filter: invert(80%);
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    img {
+      filter: invert(100%);
+      cursor: pointer;
+    }
+
+  }
+}
+
+.prev {
+  @extend .next;
+  left: 5%;
+
+  img {
+    transform: rotateY(180deg);
+  }
+  
+}
+
+
+/**           HEADER          **/
+
+.page-header {
+    position: fixed;
+    display: inline-flex;
+
+
+    .logo {
+      padding: 1vw;
+      max-width: 12vw;
+      max-height: 12vw;
+
+      z-index: 10;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+    }
+}
+
+
+/**           CONTENT          **/
+
+.content {
+  text-align: center;
+}
+
+.main-content {
+  word-wrap: break-word;
+
+  animation: unfoldIn 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  @include large {
+    max-width: 64rem;
+    padding: 2rem 6rem;
+    margin: 0 auto;
+    font-size: 1.1rem;
+  }
+
+  @include medium {
+    padding: 2rem 4rem;
+    font-size: 1.1rem;
+  }
+
+  @include small {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+
+}
+
+/**           MODALS          **/
+
+.modal {
+  .modal-background {
+    position: absolute;
+    display: table;
+
+    margin: 0;
+    // padding: 5vh, 5vw, 5vh, 5vw;
+    padding: 5vw;
+
+    top:0;
+    left:0;
+  
+    height: 100%;
+    width: 100%;
+
+    background-color: #ccccccd0;
+  }
+
+  .modal-content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+   
+    height: auto;
+
+    background-color: $bg-color;
+    border-color: rgba(255, 255, 255, 0.267);
+    border-style: solid;
+    border-radius: 1vw;
+    border-width: 0.2vw;
+    
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  }
+}
+
+#course-search {
+  margin: 0 auto;
+  max-width: 50vw;
+
+  .search-content {
+    max-height: 50vh;
+
+    li {
+      background-image: linear-gradient(to bottom, #F79F79, #F7D08A, #E3F09B);
+    }
+
+  }
+}
+
+

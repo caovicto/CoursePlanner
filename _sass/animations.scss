@@ -1,27 +1,51 @@
-@import "variables";
-
-@keyframes morph {
-    0% {
-        border-radius:  60% 40% 0% 0% / 60% 30% 0% 0%;
-        background: linear-gradient(45deg, $wave-color 0%, $wave-color2 100%);
-      } 
-      
-      50% {
-        border-radius:  30% 60% 0% 0% / 50% 60% 0% 0%;
-        background: linear-gradient(45deg, $wave-color3 0%, $wave-color2 100%);
-      }
-    
-      100% {
-        border-radius:  60% 40% 0% 0% / 60% 30% 0% 0%;
-        background: linear-gradient(45deg, $wave-color 0%, $wave-color2 100%);
-      } 
+// Full page animations
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
   }
+  100% {
+      opacity: 1;
+  }
+} 
 
-@keyframes animate {
-  0%, 100% {
-    transform: translateY(-1vw) rotate(-2deg);
+@keyframes unfoldIn {
+  0% {
+      transform:scaleY(.005) scaleX(0);
   }
   50% {
-    transform: translateY(1vw) rotate(2deg);
+      transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+      transform:scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes unfoldOut {
+  0% {
+      transform:scaleY(1) scaleX(1);
+  }
+  50% {
+      transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+      transform:scaleY(.005) scaleX(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+      transform:scale(0);
+  }
+  100% {
+      transform:scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+      transform:scale(1);
+  }
+  100% {
+      transform:scale(0);
   }
 }

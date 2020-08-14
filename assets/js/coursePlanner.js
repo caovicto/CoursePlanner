@@ -132,7 +132,7 @@ function topFunction()
 function loadMajorFunctions()
 {
     $.ajax({
-        url: "assets/files/majors",
+        url: "assets/majors",
         success: function (data) 
         {
             $(data).find("td > a").each(function () 
@@ -196,7 +196,7 @@ function loadMajorFunctions()
 function loadMinorFunctions()
 {
     $.ajax({
-        url: "assets/files/minors",
+        url: "assets/minors",
         success: function (data) {
             $(data).find("td > a").each(function () 
             {
@@ -292,7 +292,7 @@ function loadPastCoursesFunctions()
 async function loadCourses() 
 {
     // load courses
-    var relPath = "assets/files/courses/";
+    var relPath = "assets/courses/";
     var courseFiles = await loadCourseFiles(relPath);
     var files = $(courseFiles).find("td > a");
 
@@ -430,11 +430,11 @@ async function addRequirements()
     var programFiles = [];
     for (let major of user.majors) 
     {
-        programFiles.push("assets/files/majors/" + majors[major])
+        programFiles.push("assets/majors/" + majors[major])
     }
     for (let minor of user.minors) 
     {
-        programFiles.push("assets/files/minors/" + minors[minor])
+        programFiles.push("assets/minors/" + minors[minor])
     }
 
     // load programs from file

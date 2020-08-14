@@ -1,20 +1,27 @@
 // Background
-$bg-color: #000000 !default;
-// $bg-color: #f0ecfa !default;
-$wave-color: #4b528f !default;
-$wave-color2: #4b528f !default;
-$wave-color3: #4b528f !default;
-$wave-color4: #4b528f !default;
-
-
-// $theme-pink: #c86b84 !default;
-$theme-pink: #eecad4 !default;
-$theme-pinkLite: #eecad4 !default;
+$bg-color:#363636 !default; 
 
 // Breakpoints
 $large-breakpoint: 64em !default;
 $medium-breakpoint: 42em !default;
 
+// Headers
+$header-heading-color: #fff !default;
+$header-bg-color: #159957 !default;
+$header-bg-color-secondary: #155799 !default;
 
 // Text
-$section-headings-color: #ffe2e2 !default;
+$section-headings-color: #fafafa !default;
+$body-text-color: #606c71 !default;
+$body-link-color: #1e6bb8 !default;
+$blockquote-text-color: #819198 !default;
+
+// Code
+$code-bg-color: #a8ceff86 !default;
+$code-bg-color2: #ffc1a886 !default;
+$code-text-color: #567482 !default;
+
+// Borders
+$border-color: #dce6f0 !default;
+$table-border-color: #e9ebec !default;
+$hr-border-color: #eff0f1 !default;

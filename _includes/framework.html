@@ -1,0 +1,114 @@
+{% assign arrow = '<img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png">' %}
+
+<script type="module" src="{{ site.baseurl }}/assets/js/scheduler.js"></script>
+
+<!-- Modals -->
+<div class="modal" id="past-course-input" hidden>
+    <div class="modal-background">
+        <div class="modal-content">       
+            <h1 class="modal-header">Past Course Input</h1>
+            <textarea id="past-course-input-box" col="100" rows="100" 
+            placeholder="Don't worry about formatting or capitalization, feel free to just copy and paste your degree navigator information."></textarea>
+            
+            <div class="btn" modalID="past-course-input" id="past-course-submit">Submit</div>
+            <div class="btn" modalID="past-course-input" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="course-directory" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Directory</h1>
+            <div class="search" id="course-search">
+                <input class="search-bar" type="text" autocomplete="off" id="course-search-bar" placeholder="Search Course Code">
+                <ul class="search-content" id="course-search-content"></ul>
+            </div>
+            
+            <div class="btn" modalID="course-directory" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="course-info" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Information</h1>
+            <tr id="course-info-table"></tr>
+            
+            <div class="btn" modalID="course-info" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- PAGES -->
+
+<div id="schedule-content">
+    <div class="content" id="disclaimer">
+        <div page="0"></div>
+    </div>
+
+    <div class="content" id="step1">
+        <h1>Choose Major</h1>
+        <div class="search" id="major-search">
+            <input class="search-bar" type="text" autocomplete="off" id="major-search-bar" placeholder="Search Major Name">
+            <ul class="search-content" id="major-search-content"></ul>
+        </div>
+
+        <div class="next" page="1">{{ arrow }}</div>
+    </div>
+
+
+    <div class="content" id="step2" hidden>
+        <h1>Choose Minor</h1>
+        <div class="search" id="minor-search">
+            <input class="search-bar" type="text" autocomplete="off" id="minor-search-bar" placeholder="Search Minor Name">
+            <ul class="search-content" id="minor-search-content"></ul>
+        </div>
+
+        <div class="prev" page="2">{{ arrow }}</div>
+        <div class="next" page="2">{{ arrow }}</div>
+    </div> 
+
+    <!-- INPUT PAST COURSES -->
+    <div class="content" id="step3" hidden>
+        <h1>Input Past Courses</h1>
+        <div class="content" id="past-course-list" ></div>
+
+        <div class="btn" modalID="past-course-input" modalBtn="open">Input Text</div>
+        <div class="btn" modalID="course-directory"  modalBtn="open">Search</div>
+
+        <div class="prev" page="3">{{ arrow }}</div>
+        <div class="next" page="3">{{ arrow }}</div>
+    </div>
+
+    <!-- COMPLETE REAUIREMENTS -->
+    <div class="content" id="step4" hidden>
+        <h1>Complete Requirements</h1>
+        <div class="content" id="requirement-list"></div>
+
+        <div class="prev" page="4">{{ arrow }}</div>
+        <div class="next" page="4">{{ arrow }}</div>
+    </div>
+
+    <!-- ARRANGE COURSES -->
+    <div class="content" id="step5" hidden>
+        <h1>Create Schedule</h1>
+        <div class="content" id="development-semester-list"></div>
+
+        <div class="prev" page="5">{{ arrow }}</div>
+        <div class="next" page="5">{{ arrow }}</div>
+    </div>
+
+    <!-- ARRANGE COURSES -->
+    <div class="content" id="step6" hidden>
+        <h1>Completed Schedule</h1>
+        <div class="content" id="completed-semester-list"></div>
+        <div id="download"></div>
+
+        <div class="prev" page="6">{{ arrow }}</div>
+    </div>
+
+</div>

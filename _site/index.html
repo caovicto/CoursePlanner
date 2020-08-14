@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="/CoursePlanner2/assets/css/style.css?v=">
     
   </head>
 
@@ -29,85 +29,117 @@
     <!-- Page Content -->
     <main id="content" class="main-content" role="main">
 
-      <script src="/assets/js/coursePlanner.js"></script>
+      
 
+<script type="module" src="/CoursePlanner2/assets/js/scheduler.js"></script>
+
+<!-- Modals -->
+<div class="modal" id="past-course-input" hidden>
+    <div class="modal-background">
+        <div class="modal-content">       
+            <h1 class="modal-header">Past Course Input</h1>
+            <textarea id="past-course-input-box" col="100" rows="100" 
+            placeholder="Don't worry about formatting or capitalization, feel free to just copy and paste your degree navigator information."></textarea>
+            
+            <div class="btn" modalID="past-course-input" id="past-course-submit">Submit</div>
+            <div class="btn" modalID="past-course-input" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="course-directory" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Directory</h1>
+            <div class="search" id="course-search">
+                <input class="search-bar" type="text" autocomplete="off" id="course-search-bar" placeholder="Search Course Code">
+                <ul class="search-content" id="course-search-content"></ul>
+            </div>
+            
+            <div class="btn" modalID="course-directory" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="course-info" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Information</h1>
+            <tr id="course-info-table"></tr>
+            
+            <div class="btn" modalID="course-info" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- PAGES -->
 
 <div id="schedule-content">
+    <div class="content" id="disclaimer">
+        <div page="0"></div>
+    </div>
 
-    <div id="step1">
+    <div class="content" id="step1">
         <h1>Choose Major</h1>
-        <div class="selector" id="major">
-            <input class="search" type="text" autocomplete="off" id="major-search" placeholder="Search Major Name">
-            <ul id="major-list"></ul>
+        <div class="search" id="major-search">
+            <input class="search-bar" type="text" autocomplete="off" id="major-search-bar" placeholder="Search Major Name">
+            <ul class="search-content" id="major-search-content"></ul>
         </div>
 
-        <button id="step1-next">Next</button>
+        <div class="next" page="1"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
 
-    <div id="step2" style="display:none;">
+    <div class="content" id="step2" hidden>
         <h1>Choose Minor</h1>
-        <div class="selector" id="minorr" >
-            <input class="search" type="text" autocomplete="off" id="minor-search" placeholder="Search Minor Name">
-            <ul id="minor-list"></ul>
+        <div class="search" id="minor-search">
+            <input class="search-bar" type="text" autocomplete="off" id="minor-search-bar" placeholder="Search Minor Name">
+            <ul class="search-content" id="minor-search-content"></ul>
         </div>
 
-        <button id="step2-back">Back</button>
-        <button id="step2-next">Next</button>
+        <div class="prev" page="2"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+        <div class="next" page="2"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div> 
 
     <!-- INPUT PAST COURSES -->
-    <div id="step3" style="display:none;">
+    <div class="content" id="step3" hidden>
         <h1>Input Past Courses</h1>
-        <div class="chosen-courses" id="past-course-list" ></div>
+        <div class="content" id="past-course-list" ></div>
 
-        <div class="upload">
-            <textarea id="course-input"  name="someName" col="100" rows="100" 
-                placeholder="Don't worry about formatting or capitalization, feel free to just copy and paste your degree navigator information."></textarea>
-            <button id="past-courses-submit">Submit</button>
-        </div>
+        <div class="btn" modalID="past-course-input" modalBtn="open">Input Text</div>
+        <div class="btn" modalID="course-directory"  modalBtn="open">Search</div>
 
-        <div class="selector" id="past-course-selector">
-            <input class="search" autocomplete="off" filterMin="2" type="text" id="past-course-search" placeholder="Search Course Code">
-            <ul id="add-past-course"></ul>
-        </div>
-
-        <button id="step3-back">Back</button>
-        <button id="step3-next">Next</button>
+        <div class="prev" page="3"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+        <div class="next" page="3"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
     <!-- COMPLETE REAUIREMENTS -->
-    <div id="step4" style="display:none;">
+    <div class="content" id="step4" hidden>
         <h1>Complete Requirements</h1>
-        <div id="info-modal" class="modal" style="display: none;">
-            <div class="modal-background">
-                <div id="info-modal-content" class="modal-content"></div>
-            </div>
-        </div>
+        <div class="content" id="requirement-list"></div>
 
-        <div id="requirements"></div>
-
-        <button id="step4-back">Back</button>
-        <button id="step4-next">Next</button>
+        <div class="prev" page="4"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+        <div class="next" page="4"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
     <!-- ARRANGE COURSES -->
-    <div id="step5" style="display:none;">
-        <h1>Complete Requirements</h1>
-        <div id="requirements"></div>
+    <div class="content" id="step5" hidden>
+        <h1>Create Schedule</h1>
+        <div class="content" id="development-semester-list"></div>
 
-        <button id="step5-back">Back</button>
-        <button id="step5-next">Next</button>
+        <div class="prev" page="5"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+        <div class="next" page="5"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
     <!-- ARRANGE COURSES -->
-    <div id="step6" style="display:none;">
+    <div class="content" id="step6" hidden>
         <h1>Completed Schedule</h1>
-        <div id="schedule"></div>
+        <div class="content" id="completed-semester-list"></div>
         <div id="download"></div>
 
-        <button id="step6-back">Back</button>
-        <button id="step6-next">Next</button>
+        <div class="prev" page="6"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
 </div>
