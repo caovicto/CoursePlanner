@@ -189,6 +189,7 @@ function enablePastCourseInput()
     });
 }
 
+
 async function populateMajors()
 {
     await DATA.loadMajors();
@@ -285,8 +286,8 @@ async function populateMinors()
 function removePastCourse(courseCode)
 {
     user.removeCourse(courseCode);
-    $("#past-course-list").find("[code='"+courseCode+"']").remove();
-    $("#course-search-content").find("div[code='"+courseCode+"']").removeClass('selected');
+    $("#past-course-list").find("li[code='"+courseCode+"']").remove();
+    $("#course-search-content").find("li[code='"+courseCode+"']").removeClass('selected');
 }
 
 function addPastCourse(courseCode)
@@ -294,15 +295,20 @@ function addPastCourse(courseCode)
     var course = DATA.getCourse(courseCode);
     user.addCourse(courseCode, course, -1);
 
-    var pastCourse = $(document.createElement('div'))
+    var pastCourse = $(document.createElement('li'))
+        .attr("code", courseCode);
+
+    var button = $(document.createElement('div'))
         .addClass('btn')
         .attr('code', courseCode)
-        .text(courseCode);
+        .text(courseCode);        
+
     var remove = $(document.createElement('button'))
         .addClass('remove')
         .text('x');
 
-    pastCourse.append(remove);
+    pastCourse.append(button);
+    button.append(remove);
     $("#past-course-list").append(pastCourse);    
     $("#course-search-content").find("div[code='"+courseCode+"']").addClass('selected');       
 
@@ -332,7 +338,10 @@ async function createCourseButton(courseCode)
         .attr("class", "btn")
         .text(UTILITIES.capitalize(courseCode));
 
-    var course = DATA.getCourse(courseCode);
+        console.log(courseCode);
+
+    if (courseCode != "+")
+        var course = DATA.getCourse(courseCode);
     
     if (course) 
     {
@@ -432,7 +441,53 @@ async function checkValidCourses(courseList)
     return valid;
 }
 
+function enableAddNewCourse()
+{
+    $("#requirement-list").find("li").click( function() {
+        var courseCode = $(this).attr("code");
 
+        if (courseCode != "substitute")
+        {
+            if (user.getCourse(courseCode))
+            {
+                user.removeCourse(courseCode);
+                $(this).find('.btn').removeClass('selected');
+            }
+            else
+            {
+                var course = DATA.getCourse(courseCode);
+                if (course)
+                {
+                    user.addCourse(courseCode, course);
+                    $(this).find('.btn').addClass('selected');
+                }
+                else 
+                {
+                    alert("Course does not exist within MSU Course Descriptions as of 8/13/20");
+                }
+            }
+        }
+        else 
+        {
+            var courseButton = $("li[code='"+courseCode+"']").clone().show();
+            $(courseButton).find('div').removeClass('full');
+
+            setElement.append(courseButton);
+
+            $("#course-search-content").find("div[code='"+courseCode+"']").addClass('selected');    
+        }
+
+      
+
+        console.log(user);
+
+    });    
+}
+
+function enableAddSubstitute()
+{
+    $()
+}
 
 async function populateRequirements()
 {
@@ -459,28 +514,39 @@ async function populateRequirements()
                 });
 
 
-
             for (let courses of set) 
             {
-                console.log(courses);
                 setElement.attr("type", courses.type)
-                    .addClass("set-container")
+                    .addClass("search-content set-container")
                     .attr("number", courses.number);
 
                 if (await checkValidCourses(courses.courses))
                 {
+                    var li = $(document.createElement('li'))
+                        .attr("code", "substitute")
+                        .css("background-color", "lightgreen");
+
+                    var addButton = await createCourseButton("Substitute +");
+                    
+                    $(addButton).attr("set", setID)
+                        .attr("requirement", key);
+                        
+                    li.append(addButton);
+                    setElement.append(li);
+
                     for (let courseCode of courses.courses)
                     {
-                        console.log(courseCode);
                         try
                         {
-                            console.log($('#course-search-content').find("li[code='"+courseCode+"']"));
-                            var courseButton = $('#course-search-content').find("li[code='"+courseCode+"']")[0].clone();
+                            var courseButton = $("li[code='"+courseCode+"']").clone().show();
+                            $(courseButton).find('div').removeClass('full');
+
                             setElement.append(courseButton);
                         }
                         catch (error)
                         {
                             var courseButton = await createCourseButton(courseCode);
+
                             setElement.append(courseButton);
                         }
                     }
@@ -504,6 +570,6 @@ async function populateRequirements()
     }
 
     enableInfo();
-
+    enableAddNewCourse();
 }
 

@@ -82,6 +82,7 @@ textarea {
   }
 }
 
+
 h1,
 h2,
 h3,
@@ -270,6 +271,15 @@ ul {
   border: none;
 }
 
+.add {
+  @extend .btn;
+  
+  padding: 0.5vw;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+}
+
 .next {
   position: fixed;
   top: 45%;
@@ -428,6 +438,9 @@ ul {
   {
     display: block;
     padding: 2vw;
+    // margin: 0;
+    margin: auto;
+    text-align: left;
 
     background-color: rgba(255, 255, 255, 0.151);
     border-color: rgba(255, 255, 255, 0.267);
@@ -437,20 +450,50 @@ ul {
 
     color: $header-heading-color;
   
-    .set-container{
-      display: inline-block;
-      padding: 1vw;
-      text-align: left;
+   
+
+  }
+
+  
+}
+
+.set-container{
+  margin: auto;
+  padding: 2vw;
+  width: 100%;
+  height: auto;
+
+  display: inline-block;
+  text-align: left;
+
+  // overflow:auto;
+  // white-space: nowrap;
+
+  li {
+    display: inline-block;
+
+    width: auto;
+
+    background-image: linear-gradient(to right, #F79F79, #F7D08A, #E3F09B);
+    background-attachment: fixed;
+    -webkit-background-clip: text, content-box;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+  .btn {
+    display: inline-flexbox;
+    height: 5vw;
+    margin: auto;
+
+    .info {
+      max-height: calc(5px+1vw);
+      margin-left: 2vw;
+      // padding: 1vw;
+      max-height: 100%;
     }
-
-  }
-  
-  h6 {
-    pading:
   }
 
-
-  
 }
 
 
