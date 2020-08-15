@@ -47,3 +47,58 @@ export async function loadCourses()
 
     return;
 };
+
+export function getCourse(courseCode)
+{
+    var subjectCode = UTILITIES.getSubject(courseCode);
+
+    if (subjects.get(subjectCode))
+    {
+        return subjects.get(subjectCode).courses[courseCode];
+    }
+
+    return undefined;
+}
+
+export function createTable(courseCode)
+{
+    var course = getCourse(courseCode);
+
+    return $(document.createElement('table'))
+        .addClass("course-table")
+        .append(
+        `
+            <tr>
+                <th>code</th>
+                <th>`+courseCode+`</th>
+            </tr>
+            <tr>
+                <th>name</th>
+                <th>`+course.name+`</th>
+            </tr>
+            <tr>
+                <th>credits</th>
+                <th>`+course.credits+`</th>
+            </tr>
+            <tr>
+                <th>semester</th>
+                <th>`+course.semester+`</th>
+            </tr>
+            <tr>
+                <th>prerequisite</th>
+                <th>`+((course.description) ? course.description : 'None')+`</th>
+            </tr>
+            <tr>
+                <th>description</th>
+                <th>`+course.description+`</th>
+            </tr>  
+            <tr>
+                <th>restrictions</th>
+                <th>`+((course.restrictions) ? course.restrictions : 'None')+`</th>
+            </tr> 
+            <tr>
+                <th>alias</th>
+                <th>`+((course.alias) ? course.alias : 'None')+`</th>
+            </tr>  
+        `);
+}
