@@ -1,10 +1,9 @@
 ---
 ---
-
 import * as UTILITIES from './utilities.mjs';
+import { createStar } from './utilities.mjs';
 
 export var majors, minors, subjects;
-
 
 export async function loadMajors()
 {
@@ -48,57 +47,166 @@ export async function loadCourses()
     return;
 };
 
-export function getCourse(courseCode)
+export async function getCourse(courseCode)
 {
     var subjectCode = UTILITIES.getSubject(courseCode);
 
     if (subjects.get(subjectCode))
     {
+        // console.log(courseCode, subjects.get(subjectCode).courses[courseCode]);
         return subjects.get(subjectCode).courses[courseCode];
     }
 
     return undefined;
 }
 
-export function createTable(courseCode)
+export async function createTable(courseCode)
 {
-    var course = getCourse(courseCode);
+    console.log(courseCode);
+    var course = await getCourse(courseCode);
 
     return $(document.createElement('table'))
         .addClass("course-table")
         .append(
         `
             <tr>
-                <th>code</th>
+                <th>Course Code</th>
                 <th>`+courseCode+`</th>
             </tr>
             <tr>
-                <th>name</th>
+                <th>Name</th>
                 <th>`+course.name+`</th>
             </tr>
             <tr>
-                <th>credits</th>
+                <th>Credits</th>
                 <th>`+course.credits+`</th>
             </tr>
             <tr>
-                <th>semester</th>
+                <th>Semester</th>
                 <th>`+course.semester+`</th>
             </tr>
             <tr>
-                <th>prerequisite</th>
-                <th>`+((course.description) ? course.description : 'None')+`</th>
+                <th>Prerequisite</th>
+                <th>`+((course.description) ? course.description : '')+`</th>
             </tr>
             <tr>
-                <th>description</th>
+                <th>Description</th>
                 <th>`+course.description+`</th>
             </tr>  
             <tr>
-                <th>restrictions</th>
-                <th>`+((course.restrictions) ? course.restrictions : 'None')+`</th>
+                <th>Restrictions</th>
+                <th>`+((course.restrictions) ? course.restrictions : '')+`</th>
             </tr> 
             <tr>
-                <th>alias</th>
-                <th>`+((course.alias) ? course.alias : 'None')+`</th>
+                <th>Alias</th>
+                <th>`+((course.alias) ? course.alias : '')+`</th>
             </tr>  
         `);
+}
+
+export async function createCourseButton(courseCode)
+{
+    courseCode = courseCode.trim();
+    
+    var button = $(document.createElement('div'))
+        .attr("class", "btn")
+        .append(await UTILITIES.createText( await UTILITIES.capitalize(courseCode) ))  
+    
+    var course = await getCourse(courseCode);
+
+    if (course) 
+    {
+        // console.log(course);
+        button.attr("code", courseCode)
+            .attr("name", course.name)
+            .attr("credits", course.credits)
+            .attr("semester", course.semester)
+            .attr("prerequisite", course.prerequisite)
+            .attr("restriction", course.restriction)
+            .attr("alias", course.alias);
+
+        var info = $(await UTILITIES.createText('?'))
+            .addClass("info")
+            .attr("modalID", "course-info")
+            .attr("modalBtn", "open");
+
+        button.append(info);
+    }
+
+    return button;
+}
+
+/// getting all requirements
+export async function createRequirementDiv(requirement)
+{
+    var name = requirement[0];
+    var reqSets = requirement[1];
+
+    var reqDiv = $( document.createElement('div') )
+        .addClass('requirement-container')
+        .append( await UTILITIES.createTitle(name));
+
+    console.log(name);
+    for (let index in reqSets)
+    {
+        var set = reqSets[index];
+        var setDiv = $( document.createElement('div') )
+            .append( await UTILITIES.createTitle("Set "+index) );
+
+        for (let condition of set)
+        {
+            // create set
+            var distribution = condition.number + " " + condition.type + ((condition.number > 1) ? "s" : "");
+            var conditionDiv = $( document.createElement('div') );
+            var conditionInfo = await UTILITIES.createText(distribution);
+
+            conditionDiv.append(conditionInfo);
+
+            var courseDiv = $( document.createElement('div') )
+                .addClass('set-container');
+
+            var courses = condition.courses;
+
+            // Add substitute
+            var li = $( document.createElement('li') )
+                .attr("code", 'substitute')
+            .append( await createCourseButton('+') );
+
+            courseDiv.append( li );
+
+            // Add courses
+            if (await UTILITIES.checkValidCourses(courses))
+            {
+                for (let courseCode of courses)
+                {
+                    var li = $( document.createElement('li') )
+                        .attr("code", courseCode)
+                        .append( await createCourseButton(courseCode) );
+
+                    console.log($('#requirement-list').find("[code='"+courseCode+"']"));
+                    
+                    // add in recommended 
+                    if ($('#requirement-list').find("[code='"+courseCode+"']").length > 1)
+                    {
+                        $('#requirement-list').find("li[code='"+courseCode+"']").prepend( await createStar() );
+                        li.prepend( await createStar() );
+                    }    
+    
+                    courseDiv.append( li );
+                }
+            }
+            else
+            {
+                var description = await UTILITIES.createText(courses.join(' '));
+                conditionDiv.append(description);
+            }
+
+            conditionDiv.append(courseDiv);
+            setDiv.append(conditionDiv);
+        }
+
+        reqDiv.append(setDiv);
+    }
+    
+    return reqDiv;
 }

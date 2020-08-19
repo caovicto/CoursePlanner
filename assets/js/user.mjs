@@ -3,24 +3,24 @@ class User
     constructor()
     {
         this.programs = new Map();
-        this.requirements = new Map();
+        // this.requirements = new Map();
         this.courses = new Map();
     }
 
-    async buildRequirements()
+    async getRequirements()
     {
-        this.requirements.clear();
+        var requirements = new Map();
 
         for (let programRequirement of this.programs.values())
         {
             for (let reqObj of programRequirement.requirement)
             {
                 if (await validRequirement(reqObj.name))
-                    this.requirements.set(reqObj.name, reqObj.requirement)
+                    requirements.set(reqObj.name, reqObj.requirement)
             }
         }
 
-        return;
+        return requirements;
     }
 
     // getting course
@@ -59,23 +59,26 @@ class User
     {
         this.programs.set(program, programInfo);
         console.log(this);
-        this.buildRequirements();
     }
 
     removeProgram(program)
     {
         this.programs.delete(program);
-        this.buildRequirements();
     }
 
+    async createRequirementSets(reqSets)
+    {
+        
+        return null;
 
+    }
 
 }
 
 async function validRequirement(name)
 {
     return  !name.includes("University Residency") && 
-            !name.includes("University Diversity Distribution") && 
+            !name.includes("Distribution") && 
             !name.includes("GPA");
 }
 

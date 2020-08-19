@@ -12,6 +12,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/CoursePlanner2/assets/css/style.css?v=">
+    <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo="> -->
     
   </head>
 
@@ -32,6 +33,8 @@
       
 
 <script type="module" src="/CoursePlanner2/assets/js/scheduler.js"></script>
+<script type="module" src="/CoursePlanner2/assets/js/utilities.mjs"></script>
+<script type="module" src="/CoursePlanner2/assets/js/data.mjs"></script>
 
 <!-- Modals -->
 <div class="modal" id="past-course-input" hidden>
@@ -41,12 +44,12 @@
             <textarea id="past-course-input-box" col="100" rows="100" 
             placeholder="Don't worry about formatting or capitalization, feel free to just copy and paste your degree navigator information."></textarea>
             
-            <div class="btn" modalID="past-course-input" id="past-course-submit">Submit</div>
-            <div class="btn" modalID="past-course-input" modalBtn="close">Close</div>
+
+            <div class="btn" modalID="past-course-input" id="past-course-submit"><div>Submit</div></div>
+            <div class="btn" modalID="past-course-input" modalBtn="close"><div>Close</div></div>
         </div>
     </div>
 </div>
-
 
 <div class="modal" id="course-directory" hidden>
     <div class="modal-background">
@@ -68,6 +71,16 @@
             <h1 class="modal-header">Course Information</h1>
             
             <div class="btn" modalID="course-info" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="alert" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <div id="alert-message"></div>
+            
+            <div class="btn" modalID="alert" modalBtn="close">Close</div>
         </div>
     </div>
 </div>
@@ -118,6 +131,7 @@
     <div class="content" id="step4" hidden>
         <h1>Complete Requirements</h1>
         <div class="content" id="requirement-list"></div>
+        <div class="side-box"></div>
 
         <div class="prev" page="4"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
         <div class="next" page="4"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
