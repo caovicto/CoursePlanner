@@ -468,8 +468,6 @@ function enableAddNewCourse()
             $('#course-directory').show();
         }
 
-      
-
         console.log(user);
 
     });    

@@ -151,16 +151,17 @@ export async function createRequirementDiv(requirement)
     {
         var set = reqSets[index];
         var setDiv = $( document.createElement('div') )
+            .addClass('set')
             .append( await UTILITIES.createTitle("Set "+index) );
 
         for (let condition of set)
         {
             // create set
             var distribution = condition.number + " " + condition.type + ((condition.number > 1) ? "s" : "");
-            var conditionDiv = $( document.createElement('div') );
-            var conditionInfo = await UTILITIES.createText(distribution);
-
-            conditionDiv.append(conditionInfo);
+            var conditionDiv = $( document.createElement('div') )
+                .attr('type', condition.type)
+                .attr('number', condition.number)
+                .apend( await UTILITIES.createText(distribution) );
 
             var courseDiv = $( document.createElement('div') )
                 .addClass('set-container');
@@ -209,4 +210,9 @@ export async function createRequirementDiv(requirement)
     }
     
     return reqDiv;
+}
+
+export async function checkRequirement(key)
+{
+    
 }

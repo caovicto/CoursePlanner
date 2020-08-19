@@ -53,3 +53,16 @@ export async function checkValidCourses(courseList)
 
     return valid;
 }
+
+export async function checkValidRequirement()
+{
+    var valid = false;
+    for (let course of courseList)
+    {
+        valid = valid || Boolean(await DATA.getCourse(course) != null);
+        if (valid)
+            return true;
+    }
+
+    return valid;
+}
