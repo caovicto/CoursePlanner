@@ -70,8 +70,10 @@ async function next()
 
             break;
 
-        case 7:
-            return;
+        case 6:
+            $("#next").hide(500);
+
+            break;
 
     }
 
@@ -96,8 +98,8 @@ function prev()
 
             break;
 
-        case 5:
-            // $("#next").hide(500);
+        case 7:
+            $("#next").show(500);
 
             break;
 
@@ -200,8 +202,11 @@ function onClose()
     if ($(".modal").is(":visible"))
         return;
 
-    $("#prev").show();
-    $("#next").show(); 
+    if ($("[step='4'").is(":visible"))
+        $('#credit-count').show(500);
+
+    $("#prev").show(500);
+    $("#next").show(500); 
 }
 
 export async function modal()
@@ -210,6 +215,7 @@ export async function modal()
     {
         if ($("[step='6']").is(":visible"))
             $("#chosen-courses").hide();
+
 
         var modalID = "#"+$(this).attr('modalID');
 
@@ -228,8 +234,8 @@ export async function modal()
 
         $(modalID).show(500);
 
-        $("#prev").hide();
-        $("#next").hide();
+        $("#prev").hide(500);
+        $("#next").hide(500);
     });
 
 
@@ -514,7 +520,8 @@ export async function requirementCourse(ele)
     else 
     {
         console.log('substitute');
-        $('#course-directory').show();
+        $('#course-directory').show(500);
+        $('#credit-count').hide();
         $('#course-search-content').attr('requirement', $(ele).attr('substitute'));
     }
 
@@ -587,10 +594,10 @@ export function semesterInfoInput()
 
         var modalID = "#"+$(this).attr('modalID');
 
-        $(modalID).hide();
+        $(modalID).hide(500);
 
-        $("#prev").show();
-        $("#next").show();
+        $("#prev").show(500);
+        $("#next").show(500);
         // $("#chosen-courses").show();
         $("#development-semester-list").show(400);
         
