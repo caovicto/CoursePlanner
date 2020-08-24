@@ -1,3 +1,5 @@
+var tierIWriting = ['WRA101', 'WRA195H', 'LB133', 'MC111', 'MC112', 'RCAH111'];
+
 class User 
 {
     constructor()
@@ -40,8 +42,8 @@ class User
         let credits = 0;
         for (let course of this.courses.values())
         {
-            // console.log(course.info, course.info.get('credits'))
-            credits += parseInt(course.info.get('credits'), 10);
+            if (course.info.get('credits'))
+                credits += parseInt(course.info.get('credits'), 10);
         }
         return credits;
     }
@@ -55,6 +57,18 @@ class User
 
     async getCourse(course)
     {
+        if (course == 'COMPLETION OF TIER I WRITING REQUIREMENT')
+        {
+            var found;
+            for (let alias of tierIWriting)
+            {
+                found = this.courses.get(alias);
+                if (found)
+                    return found;
+            }
+
+        }
+
         return this.courses.get(course);
     }
 
@@ -71,12 +85,26 @@ class User
     async addCourse(courseCode, course, semester)
     {
         this.courses.set(courseCode, {'info':course, 'semester':semester});   
+        return true;
     }
 
     removeCourse(course)
     {
         this.courses.delete(course);
         console.log('hello', this.courses);
+    }
+
+    removeAddedCourses()
+    {
+        for (let course of this.courses)
+        {
+            if (course.semester == '1')
+            {
+                console.log('delete', course);
+                this.courses.delete(course);
+            }
+
+        }
     }
 
     // getting course

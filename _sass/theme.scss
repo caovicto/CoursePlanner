@@ -482,26 +482,26 @@ ul {
 
 
 /**          STEP 4 requirements        **/
-#requirement-list {
+#requirement-list, #prerequisite-list {
   display: box;
+}
 
-  .requirement-container
-  {
-    display: block;
-    padding: 1.5vw;
-    // margin: 0;
-    margin: auto;
-    text-align: left;
+.form-container
+{
+  display: block;
+  padding: 1.5vw;
+  // margin: 0;
+  margin: auto;
+  text-align: left;
 
-    background-color: rgba(255, 255, 255, 0.151);
-    border-color: rgba(255, 255, 255, 0.267);
-    border-style: solid;
-    border-radius: 1vw;
-    border-width: 0.2vw;
+  background-color: rgba(255, 255, 255, 0.151);
+  border-color: rgba(255, 255, 255, 0.267);
+  border-style: solid;
+  border-radius: 1vw;
+  border-width: 0.2vw;
 
-    color: $header-heading-color;
-  
-  }
+  color: $header-heading-color;
+
 }
 
 .course-container{
@@ -550,6 +550,8 @@ ul {
   border-style: solid;
   border-width: 0.1vw;
   border-radius: 0.3rem;
+
+  text-align: center;
 
   padding: 1vw;
 }

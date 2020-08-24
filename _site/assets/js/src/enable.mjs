@@ -3,10 +3,13 @@ import * as DATA from './data.mjs';
 import * as DRAGGABLE from './draggable.mjs';
 
 import {user} from '../scheduler.js';
+import { parsePrerequisite } from './utilities.mjs';
 
 var shownCourses = new Set();   // showing course search
 
-// USER INFO
+/** STEP 4
+ * Updates the credit menu in requirements page
+ */
 async function updateCredits()
 {
     let reqCredits = await user.getRequiredCredits();
@@ -20,7 +23,9 @@ async function updateCredits()
     }
 }
 
-
+/** STEP 4
+ * Populates the requirements page
+ */
 async function populateRequirements()
 {
     var requirements = await user.getRequirements();
@@ -34,10 +39,70 @@ async function populateRequirements()
 
     courseInfo();
     modal();
+    $("#requirement-list").find("[code][class~='btn']").click( function() { requirementCourse(this); } );
 
 }
 
-// GENERAL PAGE FUNCTIONS
+function prerequisiteForm()
+{
+    courseInfo();
+    $("#prerequisite-list").find("[code][class~='btn']").click( function() { prerequisiteCourse(this); } )
+    
+    for (let course of user.getCourses().values())
+    {
+        if (course.semester != '1')
+        {
+            var courseCode = course.info.get('code');
+            $("#prerequisite-list").find("[class~='btn'][code='"+courseCode+"']").addClass('locked');
+        }
+    }
+}
+
+/** STEP 5
+ * Populates the prerequisite page
+ */
+export async function populatePrerequisites()
+{
+    $('#prerequisite-list').empty();
+
+    for (let course of user.getCourses().values())
+    {
+        if (course.semester == "1")
+        {
+            user.removeCourse(course.info.get('code'));
+        }
+    }
+
+
+    for (let course of user.getCourses().values())
+    {
+        if (course.semester == "-1")
+        {
+            var fulfilled = await checkPrerequisite(course.info.get("prerequisite"));
+
+            // add div if not fulfilled
+            if (!fulfilled)
+            {
+                var prereqDiv = await UTILITIES.createPrerequisiteDiv(course.info);
+                $('#prerequisite-list').append( prereqDiv );
+            }
+        }
+    }
+
+    if ($('#prerequisite-list').children().length)
+    {
+        prerequisiteForm();
+    }
+    else 
+    {
+        $('#prerequisite-list').append( $(document.createElement('h2')).text("You're all Set!") );
+    }
+
+}
+
+/**
+ * Next function for page
+ */
 async function next()
 {
     var page = $('[step]:visible').attr('step');
@@ -47,10 +112,12 @@ async function next()
     
     switch (stepNumber)
     {
+        // major
         case 1:
             $("#prev").show(500);
             break;
 
+        // minor
         case 2:
             if (!user.hasPrograms())
                 return;
@@ -59,23 +126,32 @@ async function next()
 
             break;
 
+        // past courses
         case 3:
             checkRequirements();
             updateCredits();
             $("#course-search-content").find('.selected').removeClass('selected');
+            $("#credit-count").show(500);
 
             break;
 
+        // requirements
         case 4:
-            await populatePrerequisites();
+            populatePrerequisites();
 
             break;
 
+        // prerequisites
+        case 5:
+            $("#credit-count").hide(500);
+
+            break;
+
+        // edit schedule
         case 6:
             $("#next").hide(500);
 
             break;
-
     }
 
 
@@ -85,6 +161,10 @@ async function next()
 
 }
 
+
+/**
+ * Previous function for page
+ */
 function prev()
 {
     var page = $('[step]:visible').attr('step');
@@ -94,9 +174,28 @@ function prev()
 
     switch (stepNumber)
     {
+        // minor
         case 2:
             $("#prev").hide(500);
 
+            break;
+
+        // requirements
+        case 4:
+            $("#credit-count").hide(500);
+            
+            break;
+
+        // prerequisites
+        case 5:
+            // user.removeAddedCourses();
+
+            break;
+
+        //create schedule
+        case 6:
+            $("#credit-count").show(500);
+            
             break;
 
         case 7:
@@ -111,6 +210,9 @@ function prev()
     });
 }
 
+/**
+ * Enables page navigation
+ */
 export function pageNavigation()
 {
     $("#prev").click(prev);
@@ -135,6 +237,11 @@ export function pageNavigation()
 
 }
 
+/**
+ * Enables all search functions 
+ * - major/minor search
+ * - course directory search
+ */
 export function search()
 {
     console.log($('.search').not('#course-search'));
@@ -203,7 +310,7 @@ function onClose()
     if ($(".modal").is(":visible"))
         return;
 
-    if ($("[step='4'").is(":visible"))
+    if ($("[step='4'],[step='5']").is(":visible"))
         $('#credit-count').show(500);
 
     $("#prev").show(500);
@@ -216,6 +323,9 @@ export async function modal()
     {
         if ($("[step='6']").is(":visible"))
             $("#chosen-courses").hide();
+
+        if ($("[step='4'],[step='5']").is(":visible"))
+            $('#credit-count').hide(500);
 
 
         var modalID = "#"+$(this).attr('modalID');
@@ -257,13 +367,19 @@ export async function modal()
     });
 }
 
-
-// STEP 5 ADD INS
-export function prerequisiteForm()
+function toggleButtons(ele)
 {
-    $("#")
+    if ($(ele).hasClass('selected'))
+    {
+        $(ele).removeClass('selected');
+        $(ele).parent().siblings().find('.btn').addClass('selected');
+    }
+    else
+    {
+        $(ele).addClass('selected');
+        $(ele).parent().siblings().find('.btn').removeClass('selected');
+    }
 }
-
 
 // COURSE FUNCTIONS
 export async function courseInfo()
@@ -277,7 +393,9 @@ export async function courseInfo()
     });
 }
 
-// PAST COURSE 
+/**
+ * Past course input box
+ */
 export function pastCourseInput()
 {
     $("#past-course-submit").click(async function () 
@@ -311,7 +429,8 @@ export function removePastCourse(courseCode)
     $("#course-search-content").find("[code='"+courseCode+"']").removeClass('selected');
 
     // update step 4, requirement list
-    $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").removeClass('locked').click();
+    $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").removeClass('locked');
+    clickRequirementCourse(courseCode);
 
     // update step 6, create schedule
     $("[semester='0']").find("li[code='"+courseCode+"']").remove();
@@ -353,7 +472,9 @@ async function addPastCourse(courseCode)
         $("#course-search-content").find("div[code='"+courseCode+"']").addClass('selected');
 
         // update step 4, requirement list
-        $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").addClass('selected').click().addClass('locked');
+        clickRequirementCourse(courseCode);
+        $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").addClass('locked');
+
 
         // update step 6, create schedule
         var courseButton = await UTILITIES.createCourseButton(courseCode);
@@ -431,150 +552,299 @@ export async function courseSearchSelect(ele)
 }
 
 
+/**             STEP 4: REQUIREMENTS             */
+
 /**
- * REQUIREMENTS
+ * Checks requirement of reqContainer,
+ * if fulfilled remove unfulfilled class
+ * @param reqContainer jquery element
  */
-
-export function checkRequirements()
+export function checkRequirements(reqContainer)
 {
-    $('.requirement-container').click( function() {
-        var fulfilled = false;
+    var fulfilled = false;
 
-        var sets = $(this).find('.set');
-        for (let set of sets)
+    var sets = $(reqContainer).find('.set');
+    for (let set of sets)
+    {
+        var setfulfilled = true;
+
+        var conditions = $(set).find('.condition');
+
+        for (let condition of conditions)
         {
-            var setfulfilled = true;
-    
-            var conditions = $(set).find('.condition');
+            var number = parseInt($(condition).attr('number'), 10);
+            var selected = $(condition).find('.selected');
 
-            for (let condition of conditions)
+            if ($(condition).attr('type') == 'course')
             {
-                var number = parseInt($(condition).attr('number'), 10);
-                var selected = $(condition).find('.selected');
-
-                if ($(condition).attr('type') == 'course')
-                {
-                    setfulfilled = setfulfilled && (selected.length >= number);
-                }
-                else 
-                {
-                    var totalCredits = 0;
-                    for (let course of selected)
-                    {
-                        totalCredits += parseInt($(course).attr('credits'));
-                    }
-
-                    setfulfilled = setfulfilled && (totalCredits >= number);    
-                }
+                setfulfilled = setfulfilled && (selected.length >= number);
             }
-    
-            fulfilled = fulfilled || setfulfilled;
-
-            if (fulfilled)
+            else 
             {
-                $(this).removeClass('unfulfilled');
-                return;
+                var totalCredits = 0;
+                for (let course of selected)
+                {
+                    totalCredits += parseInt($(course).attr('credits'));
+                }
+
+                setfulfilled = setfulfilled && (totalCredits >= number);    
             }
         }
 
-        $(this).addClass('unfulfilled');
+        fulfilled = fulfilled || setfulfilled;
+
+        if (fulfilled)
+        {
+            $(reqContainer).removeClass('unfulfilled');
+            return;
+        }
+    }
+
+    $(reqContainer).addClass('unfulfilled');
+  
+}
+
+/**
+ * 'clicks' on all buttons in requirement list with courseCode
+ * @param courseCode to find and click
+ */
+function clickRequirementCourse(courseCode)
+{
+    var selected = $("#requirement-list").find("[code='"+courseCode+"'][class~='btn']").hasClass('selected');
+    
+    $("#requirement-list").find("[code='"+courseCode+"'][class~='btn']").each( function () {
+        if (selected)
+            $(this).removeClass('selected');
+        else
+            $(this).addClass('selected');
+        checkRequirements($(this).closest('.requirement-container'));
     });
 }
 
+/**
+ * Enables on click for requirement course 
+ * in requirement div
+ * @param ele jquery element
+ */
 export async function requirementCourse(ele)
 {
-    // $("#requirement-list").find("li").click( async function() {
     var courseCode = $(ele).attr("code");
 
     if (courseCode != "substitute")
     {
         var userCourse = await user.getCourse(courseCode);
         console.log(userCourse);
-        var button = $(ele).find('.btn');
+
         // if user has course and is not a past course
         if (userCourse && user.getCourseSemester(courseCode) == '-1')
         {
             user.removeCourse(courseCode);                    
-            button.removeClass('selected');
+            clickRequirementCourse(courseCode);
 
             // remove course from chosen courses
             $("[semester='-1']").find("[code='"+courseCode+"']").remove();
         }
         else if (!userCourse)
         {
-            if (!$(button).hasClass('selected'))
-            {
-                var course = await UTILITIES.getButtonData(button);
-       
-                user.addCourse(courseCode, course, '-1');
-                button.addClass('selected');
+            // console.log(this);
+            var course = await UTILITIES.getButtonData(ele);
     
-                // add course to chosen courses in step 5
-                var courseButton = $( document.createElement('li') )
-                    .attr("code", courseCode)
-                    .append( await UTILITIES.createCourseButton(courseCode) );
-        
-                if ($(courseButton).find('.info').length && !$("[semester='-1']").find("[code='"+courseCode+"']").length)
-                {
-                    $("[semester='-1']").find('.block-course-container').append(courseButton); 
-                    courseInfo();
-                }
-            }
+            user.addCourse(courseCode, course, '-1');
+            clickRequirementCourse(courseCode);
 
-            else 
+            // add course to chosen courses in step 5
+            var courseButton = $( document.createElement('li') )
+                .attr("code", courseCode)
+                .append( await UTILITIES.createCourseButton(courseCode) );
+    
+            if ($(courseButton).find('.info').length && !$("[semester='-1']").find("[code='"+courseCode+"']").length)
             {
-                $(button).removeClass('selected');
+                $("[semester='-1']").find('.block-course-container').append(courseButton); 
+                courseInfo();
             }
-            
         }
     }
     else 
     {
         console.log('substitute');
-        // $('#course-directory').show(500);
-        $('#credit-count').hide();
         $('#course-search-content').attr('substitute', $(ele).attr('substitute-conditionID'));
     }
 
     console.log(user);
     updateCredits();
-
-    // });  
+ 
 }
 
+/**             STEP 5: PREREQUISITES             */
 
-/**
- * PREREQUISITES
- */
-export async function populatePrerequisites()
+async function addEnglishPlacement()
 {
-    for (let course of user.getCourses().values())
+    console.log(user.getCourses());
+
+    if ($("#passed-english-placement").hasClass('selected'))
     {
-        console.log(course);
-        var parsed = await UTILITIES.parsePrerequisite(course.info.get('prerequisite'));
-        console.log(parsed);
+        var englishInfo = new Map();
+        englishInfo.set('code', 'DESIGNATED SCORE ON ENGLISH PLACEMENT TEST');
+        englishInfo.set('name', 'DESIGNATED SCORE ON ENGLISH PLACEMENT TEST');
+        user.addCourse('DESIGNATED SCORE ON ENGLISH PLACEMENT TEST', englishInfo, '-1');
+    }
+
+}
+
+async function addMathPlacement()
+{
+    console.log(user.getCourses());
+
+    if ($("#passed-mathematics-placement").hasClass('selected'))
+    {
+        var mathInfo = new Map();
+        mathInfo.set('code', 'DESIGNATED SCORE ON MATHEMATICS PLACEMENT TEST');
+        mathInfo.set('name', 'DESIGNATED SCORE ON MATHEMATICS PLACEMENT TEST');
+        user.addCourse('DESIGNATED SCORE ON MATHEMATICS PLACEMENT TEST', mathInfo, '-1');
     }
 }
 
+/**
+ * starting prerequisite info input information
+ */
+export async function prerequisiteInfoInput()
+{
+    $("#english-placement, #mathematics-placement").find('.btn').click( function() {
+        toggleButtons(this);
+    });
 
+    $("#prerequisite-input-submit").click( async function () {
+        addEnglishPlacement();
+        addMathPlacement();
+    });
+}
 
 /**
- * EDIT SCHEDULE
+ * 
+ * @param prereqContainer 
+ */
+async function checkPrerequisite(prereqText)
+{
+    var parsedPrereqs = await UTILITIES.parsePrerequisite(prereqText);
+    console.log(parsedPrereqs);
+
+    // add in user information
+    for (let i = 0; i < parsedPrereqs.length; i++)
+    {
+        if (!UTILITIES.delimeters.includes(parsedPrereqs[i]))
+        {
+            if (await user.getCourse(parsedPrereqs[i]))
+            {
+                parsedPrereqs[i] = true;
+            }
+            else 
+            {
+                parsedPrereqs[i] = false;
+            }
+        }
+    }
+
+    return await UTILITIES.solvePrerequisite(parsedPrereqs);
+}
+
+/**
+ * 'clicks' on all buttons in requirement list with courseCode
+ * @param courseCode to find and click
+ */
+async function clickPrerequisiteCourse(courseCode)
+{
+    clickRequirementCourse(courseCode);
+
+    var selected = $("#prerequisite-list").find("[code='"+courseCode+"'][class~='btn']").hasClass('selected');
+
+    $("#prerequisite-list").find("[code='"+courseCode+"'][class~='btn']").each( async function () {
+        if (selected)
+            $(this).removeClass('selected');
+        else
+            $(this).addClass('selected');
+
+        var prereqContainer = $(this).closest('.prerequisite-container');
+        console.log(prereqContainer);
+
+        if (await checkPrerequisite($(prereqContainer).attr('prerequisiteText')) )
+        {
+            $(prereqContainer).removeClass('unfulfilled');
+            return;
+        }
+
+        $(prereqContainer).addClass('unfulfilled');
+    });
+
+    var course = await user.getCourse(courseCode);
+    var fulfilled = await checkPrerequisite(course.info.get('prerequisite'));
+
+    // add div if not fulfilled
+    if (!fulfilled)
+    {
+        var prereqDiv = await UTILITIES.createPrerequisiteDiv(course.info);
+        $('#prerequisite-list').append( prereqDiv );
+        prerequisiteForm();
+    }
+}
+
+/**
+ * 
+ * @param ele 
+ */
+export async function prerequisiteCourse(ele)
+{
+    var courseCode = $(ele).attr("code");
+
+    var userCourse = await user.getCourse(courseCode);
+    console.log(userCourse);
+
+    // if user has course and is not a past course
+    if (userCourse && user.getCourseSemester(courseCode) == '1')
+    {
+        user.removeCourse(courseCode);                    
+        clickPrerequisiteCourse(courseCode);
+
+        // remove course from chosen courses
+        $("[semester='-1']").find("[code='"+courseCode+"']").remove();
+    }
+    else if (!userCourse)
+    {
+        var course = await UTILITIES.getButtonData(ele);
+
+        user.addCourse(courseCode, course, '1');
+        clickPrerequisiteCourse(courseCode);
+
+        // add course to chosen courses in step 5
+        var courseButton = $( document.createElement('li') )
+            .attr("code", courseCode)
+            .append( await UTILITIES.createCourseButton(courseCode) );
+
+        console.log(courseButton);
+
+        if ($(courseButton).find('.info').length && !$("[semester='-1']").find("[code='"+courseCode+"']").length)
+        {
+            $("[semester='-1']").find('.block-course-container').append(courseButton); 
+            courseInfo();
+        }
+
+    }
+
+
+    console.log(user);
+    updateCredits();
+}
+
+
+
+/**             STEP 6: EDIT SCHEDULE             */
+
+/**
+ * starting semester info input information
  */
 export function semesterInfoInput()
 {
     $("#start-semester").find('.btn').click( function() {
-        if ($(this).hasClass('selected'))
-        {
-            $(this).removeClass('selected');
-            console.log(this);
-            $(this).parent().siblings().find('.btn').addClass('selected');
-        }
-        else
-        {
-            $(this).addClass('selected');
-            $(this).parent().siblings().find('.btn').removeClass('selected');
-        }
+        toggleButtons(this);
     });
 
     $("#semester-input-submit").click(async function () {
@@ -601,16 +871,9 @@ export function semesterInfoInput()
             $("[semester='0']").hide();
         }
 
-        // close modal
 
-        var modalID = "#"+$(this).attr('modalID');
-
-        $(modalID).hide(500);
-
-        $("#prev").show(500);
-        $("#next").show(500);
-        // $("#chosen-courses").show();
         $("#development-semester-list").show(400);
         
     });
 }
+

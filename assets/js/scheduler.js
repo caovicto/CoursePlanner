@@ -15,6 +15,7 @@ $(document).ready(async function () {
         ENABLE.pageNavigation();
         ENABLE.modal();
         ENABLE.pastCourseInput();
+        ENABLE.prerequisiteInfoInput();
         ENABLE.semesterInfoInput();
         
         // Set up search functionality

@@ -1,11 +1,13 @@
 import * as DATA from './data.mjs';
 import * as ENABLE from './enable.mjs';
+import { courseSearchSelect } from './enable.mjs';
 
 var seasons = ['F', 'S', 'SU'];
-var colors = ['#F79F79', '#F7D08A', '#E3F09B ']
+var colors = ['#F79F79', '#F7D08A', '#E3F09B '];
+export var delimeters = ['(', ')', 'or', 'and', 'OR', 'AND']
 
 
-// GENERAL FUNCTIONS
+/**                         GENERAL FUNCTIONS                   **/
 export function scrollTop() 
 {
     $('html, body').animate({
@@ -47,42 +49,146 @@ export async function checkValidCourses(courseList)
 
 async function convert(text)
 {
-    var code = text.trim().toUpperCase();
+    text = text.toUpperCase(); 
 
-    var condensed = code.replace(/\s/g, '');
-    var match = (/[A-Z]+\d+(?:[A-Z])?/g).test(condensed);
-    if (match)
+    if (text.match(/\d+/g))
     {
-        return condensed;
+        return text.replace(/\s/g, "");
     }
 
-    return code;
+    return text;
 }
 
-export async function parsePrerequisite(text)
+            /**        PREREQUISITE FUNCTIONS         **/
+/**
+ * inflix to postfix
+ * @param arr to translate to postfix
+ */
+async function postfix(arr)
 {
-    if (text)
+    var stack = new Array();
+    var postfix = new Array();
+
+    for (let ele of arr)
     {
-        var parsed = text.split(/\band\b|\bor\b|\(|\)/g);
-        var processed = new Array();
-    
-        for (let ele of parsed)
+        if (ele == ')')
         {
-            var processedText = await convert(ele);
-            if (processedText != '')
+            var popped = stack[stack.length-1];
+            stack.pop();
+
+            while (popped != '(')
             {
-                processed.push(processedText);
+                postfix.push(popped);
+
+                popped = stack[stack.length-1];
+                stack.pop();
             }
         }
-    
-        return processed;
+        else if (delimeters.includes(ele))
+        {
+            stack.push(ele);
+        }
+        else
+        {
+            postfix.push(ele);
+        }
     }
 
-    return undefined;
+    postfix = postfix.concat(stack.reverse());
+
+    return postfix;
+}
+
+/**
+ * Parses blocks from prerequisite function
+ * @param text 
+ */
+export async function parsePrerequisite(text)
+{
+    console.log(text);
+    if (text)
+    {
+        var parsed = text.split(/\s/g);
+        var processed = new Array();
+
+        for (let word of parsed)
+        {
+            var splitWord = word.split(/((?<=\))|(?=\))|(?<=\()|(?=\())/g);
+            processed = processed.concat(splitWord);
+            
+        }
+
+        parsed.length = 0;
+
+        for (let i = 0; i < processed.length; i++)
+        {
+            if (delimeters.includes(processed[i]))
+            {
+                parsed.push(processed[i].toUpperCase());
+            }
+            else
+            {
+                var joinedWord = processed[i];
+                while(!delimeters.includes(processed[i+1]) && i+1 < processed.length)
+                {
+                    ++i;
+                    if (processed[i] != '')
+                    {
+                        joinedWord += ' ' + processed[i];
+                    }
+                }
+                parsed.push(await convert(joinedWord));
+            }
+        }
+
+
+        return parsed;
+    }
+
+    return [];
 
 }
 
-// CREATING TEXT
+/**
+ * Solves the parsedPrereq
+ * @param parsedPrereq array prerequisite delimeters and 'courses,
+ * courses taken are marked by true
+ * @returns solved version of parsed prerequisite
+ */
+export async function solvePrerequisite(parsedPrereq)
+{
+    parsedPrereq = await postfix(parsedPrereq);
+    var stack = new Array();
+
+    for (let ele of parsedPrereq)
+    {
+        // ele is 'and' || 'or'
+        if (delimeters.includes(ele))
+        {
+            var popped = stack[stack.length-1];
+            stack.pop();
+
+            if (ele == 'and' || ele == 'AND')
+            {
+                stack[stack.length-1] &= popped;
+            }
+            else
+            {
+                stack[stack.length-1] |= popped;
+            }
+        }
+        else
+        {
+            stack.push(ele);
+        }
+
+    }
+
+    return (stack.length) ? stack[stack.length-1] : true;
+
+}
+
+/**                         CREATING TEXT                       **/
 export async function createText(text)
 {
     return $(document.createElement('div')).text(text);
@@ -98,7 +204,7 @@ export async function createStar()
     return $(document.createElement('div')).text('★').addClass('star');
 }
 
-// CREATING BUTTONS
+/**                         CREATING BUTTONS                    **/
 export async function createCourseButton(courseCode)
 {
     courseCode = courseCode.trim();
@@ -138,8 +244,8 @@ async function createSubstituteButton(conditionID)
         .attr('substitute-conditionID', conditionID)
         .attr("modalID", 'course-directory')
         .attr("modalBtn", "open")
-        .append( await createCourseButton('+') )
-        .click( function() { ENABLE.requirementCourse(this); });
+        .append( await createCourseButton('+') );
+        // .click( function() { ENABLE.requirementCourse(this); });
 }
 
 export async function getButtonData(ele)
@@ -278,13 +384,20 @@ export async function createTable(courseCode)
         `);
 }
 
+/**
+ * Creates requirement Div for requirement info
+ * - enables check requirement
+ * 
+ * @param requirment info from user
+ * @returns div element with requirement buttons to select
+ */
 export async function createRequirementDiv(requirement)
 {
     var name = requirement[0];
     var reqSets = requirement[1];
 
     var reqDiv = $( document.createElement('div') )
-        .addClass('requirement-container unfulfilled')
+        .addClass('form-container requirement-container unfulfilled')
         .attr('id', name)
         .append( await createTitle(name));
 
@@ -329,8 +442,8 @@ export async function createRequirementDiv(requirement)
                     var li = $( document.createElement('li') )
                         .attr("code", courseCode)
                         .append( await createStarContainer() )
-                        .append( await createCourseButton(courseCode) )
-                        .click( function() { ENABLE.requirementCourse(this); });
+                        .append( await createCourseButton(courseCode) );
+                        // .click( function() { ENABLE.requirementCourse(this); });
                     
                     // add in recommended 
                     if ($('#requirement-list').find("[code='"+courseCode+"']").length > 1)
@@ -356,9 +469,49 @@ export async function createRequirementDiv(requirement)
         reqDiv.append(setDiv);
     }
 
-    ENABLE.checkRequirements();
-    // ENABLE.requirementCourses();  
-    
     return reqDiv;
 }
 
+/**
+ * Creates prerequisite Div for course element
+ * @param course data info from user
+ * @param solvedPrereq Solved array of prerequisite
+ * @returns div element with prerequisites to select
+ */
+export async function createPrerequisiteDiv(course)
+{
+    var prerequisites = await parsePrerequisite(course.get("prerequisite"));
+    prerequisites = prerequisites.filter( ele => !delimeters.includes(ele));
+
+    console.log(prerequisites);
+
+    // creating prerequisite div
+    var title = course.get('code') + ((course.get('name')) ? (": "+course.get('name')) : "");
+    var name = (course.get('name')) ? course.get('name') : course.get('code') ;
+
+    var prepreqDiv = $( document.createElement('div') )
+        .addClass('form-container prerequisite-container unfulfilled' )
+        .attr('prerequisiteID', name )
+        .attr('prerequisiteText', course.get("prerequisite") )
+        .append( await createTitle(title) )
+        .append( await createText(course.get("prerequisite")) );
+
+
+    var courseDiv = $( document.createElement('div') )
+        .addClass('course-container');
+
+    for (let courseCode of prerequisites)
+    {
+        var li = $( document.createElement('li') )
+            .attr("code", courseCode)
+            .append( await createCourseButton(courseCode) );
+            // .click( function() { ENABLE.prerequisiteCourse(this); }); 
+
+        courseDiv.append( li );
+    }
+
+    prepreqDiv.append( courseDiv );
+
+
+    return prepreqDiv;
+}

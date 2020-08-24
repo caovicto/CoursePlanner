@@ -102,10 +102,12 @@ CSE803	3	current'"></textarea>
 <!-- PAGES -->
 
 <div id="schedule-content">
+    <!-- DISCLAIMER -->
     <div class="content" id="disclaimer" step='0' hidden>
         <div page="0"></div>
     </div>
 
+    <!-- MAJOR -->
     <div class="content" step='1'>
         <h1>Choose Major</h1>
         <div class="search" id="major-search">
@@ -114,7 +116,7 @@ CSE803	3	current'"></textarea>
         </div>
     </div>
 
-
+    <!-- MINOR -->
     <div class="content" step='2' hidden>
         <h1>Choose Minor</h1>
         <div class="search" id="minor-search">
@@ -125,7 +127,7 @@ CSE803	3	current'"></textarea>
  
     </div> 
 
-    <!-- INPUT PAST COURSES -->
+    <!-- PAST COURSES -->
     <div class="content" step='3' hidden>
         <h1>Input Past Courses</h1>
         <ul class="block-course-container" id="past-course-list" ></ul>
@@ -136,7 +138,16 @@ CSE803	3	current'"></textarea>
  
     </div>
 
-    <!-- COMPLETE REAUIREMENTS -->
+    <!-- CREDIT COUNT FOR STEP 4/5 -->
+    <div id="credit-count" hidden>
+        <h3>Required Credits</h3>
+        <div id="required-credits"></div>
+        <h3>User Credits</h3>
+        <div id="user-credits"></div>
+    </div>
+
+
+    <!-- REQUIREMENTS -->
     <div class="content" step='4' hidden>
         <!-- Incomplete requirements modal -->
         <div class="modal" id="unfulfilled" hidden>
@@ -151,20 +162,46 @@ CSE803	3	current'"></textarea>
                 </div>
             </div>
         </div>
+
+        <!-- Placement Test Info -->
+        <div class="modal" id="prerequisite-input">
+            <div class="modal-background">
+                <div class="modal-content">
+                    <div style="padding: 1vw">
+                        <h1>Placement Test Information</h1>
+                        <div style="padding: 1vw">
+                            <h3>Designated Score on English Placement Test</h3>
+                            <ul class="block-course-container" id="english-placement" style="width:fit-content">
+                                <li><div class='btn selected' id="passed-english-placement">Yes</div></li>
+                                <li><div class='btn'>No</div></li>
+                            </ul>
+                        </div>
+    
+                        <div style="padding: 1vw">
+                            <h3>Designated Score on Mathematics Placement Test</h3>
+                            <ul class="block-course-container" id="mathematics-placement" style="width:fit-content">
+                                <li><div class='btn selected' id="passed-mathematics-placement">Yes</div></li>
+                                <li><div class='btn'>No</div></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="btn" modalBtn="close" modalID="prerequisite-input" id="prerequisite-input-submit">Continue</div>
+                </div>
+            </div>
+        </div>
         
         <h1>Complete Requirements</h1>
-        <div id="credit-count">
-            <h3>Required Credits</h3>
-            <div id="required-credits"></div>
-            <h3>User Credits</h3>
-            <div id="user-credits"></div>
-        </div>
 
         <div class="content" id="requirement-list"></div>
     </div>
 
-    <!-- ADD IN  -->
-    <div class="content" step='5' hidden>        
+
+    <!-- PREREQUISITES  -->
+    <div class="content" step='5' hidden>   
+        
+
+                
         <h1>Complete Prerequisites</h1>
 
         <div id="prerequisite-form">
@@ -174,9 +211,6 @@ CSE803	3	current'"></textarea>
 
     
         </div>
-
-
-
         
     </div>
 
@@ -208,7 +242,7 @@ CSE803	3	current'"></textarea>
                         </div>
                     </div>
                     
-                    <div class="btn" modalID="semester-input" id="semester-input-submit">Continue</div>
+                    <div class="btn" modalBtn="close" modalID="semester-input" id="semester-input-submit">Continue</div>
                 </div>
             </div>
         </div>
@@ -218,6 +252,12 @@ CSE803	3	current'"></textarea>
         <div id="development-semester-list" hidden>
             <div id="chosen-courses">
                 <div class='drop-box' semester='-1'>
+                    <div class="semester-info">
+                        <div class="credits">
+                            <div>Credits</div><div semesterid="-1" credittext="true">0</div>
+                        </div>
+                    </div>
+
                     <h3>Chosen Courses</h3>
                     <ul class="block-course-container drag-list"></ul>
                 </div>
@@ -225,6 +265,12 @@ CSE803	3	current'"></textarea>
 
             <div id="semester-boxes">
                 <div class='drop-box' semester='0'>
+                    <div class="semester-info">
+                        <div class="credits">
+                            <div>Credits</div><div semesterid="0" credittext="true">0</div>
+                        </div>
+                    </div>
+
                     <h3>Previous Courses</h3>
                     <ul class="block-course-container"></ul>
                 </div>  
@@ -243,6 +289,8 @@ CSE803	3	current'"></textarea>
 
     </div>
 
+
+    <!-- PAGE NAVIGATION -->
     <div id="prev" hidden><img src="assets/images/rightArrow.png"></div>
     <div id="next"><img src="assets/images/rightArrow.png"></div>
 
