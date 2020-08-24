@@ -131,11 +131,13 @@ export async function createCourseButton(courseCode)
     return button;
 }
 
-async function createSubstituteButton(substitute)
+async function createSubstituteButton(conditionID)
 {
     return $( document.createElement('li') )
         .attr("code", 'substitute')
-        .attr("substitute", substitute)
+        .attr('substitute-conditionID', conditionID)
+        .attr("modalID", 'course-directory')
+        .attr("modalBtn", "open")
         .append( await createCourseButton('+') )
         .click( function() { ENABLE.requirementCourse(this); });
 }
@@ -287,20 +289,25 @@ export async function createRequirementDiv(requirement)
         .append( await createTitle(name));
 
     // console.log(name);
-    for (let index in reqSets)
+    for (let setIndex in reqSets)
     {
-        var set = reqSets[index];
+        var set = reqSets[setIndex];
         var setDiv = $( document.createElement('div') )
             .addClass('set')
-            .append( await createTitle("Set "+index) );
+            .append( await createTitle("Set "+setIndex) );
 
+        var conditionIndex = 0;
         for (let condition of set)
         {
+            // conditionID
+            var conditionID = name+setIndex+conditionIndex;
+
             // create set
             var distribution = condition.number + " " + condition.type + ((condition.number > 1) ? "s" : "");
             var conditionDiv = $( document.createElement('div') )
                 .attr('type', condition.type)
                 .attr('number', condition.number)
+                .attr('conditionID', conditionID)
                 .addClass('condition')
                 .append( await createText(distribution) );
 
@@ -310,7 +317,7 @@ export async function createRequirementDiv(requirement)
             var courses = condition.courses;
 
             // Add substitute
-            var li = await createSubstituteButton(name);
+            var li = await createSubstituteButton(conditionID);
 
             courseDiv.append( li );
 
@@ -343,6 +350,8 @@ export async function createRequirementDiv(requirement)
 
             conditionDiv.append(courseDiv);
             setDiv.append(conditionDiv);
+
+            ++conditionIndex;
         }
         reqDiv.append(setDiv);
     }

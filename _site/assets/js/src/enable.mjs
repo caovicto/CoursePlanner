@@ -33,6 +33,7 @@ async function populateRequirements()
     }
 
     courseInfo();
+    modal();
 
 }
 
@@ -60,8 +61,8 @@ async function next()
 
         case 3:
             checkRequirements();
-            // requirementCourses();
             updateCredits();
+            $("#course-search-content").find('.selected').removeClass('selected');
 
             break;
 
@@ -399,19 +400,29 @@ export async function courseSearchSelect(ele)
     {
         var courseCode = $(ele).attr("code");
 
-        var requirement = $('#course-search-content').attr('requirement');
+        var substitute = $('#course-search-content').attr('substitute');
 
-        if (!$("[substitute='"+requirement+"']").parent().find("[code='"+courseCode+"']").length)
+        if (!$("[substitute-conditionID='"+substitute+"']").parent().find("[code='"+courseCode+"']").length)
         {
-            console.log(courseCode, requirement);
+            console.log(courseCode, substitute);
             
+            var courseButton = await UTILITIES.createCourseButton(courseCode);
             var li = $( document.createElement('li') )
                 .attr("code", courseCode)
-                .append( await UTILITIES.createCourseButton(courseCode) )
-                .click( function() { requirementCourse(this); });
+                .append( courseButton )
+                .click( function() { requirementCourse(this); });            
 
 
-            $(li).insertAfter($("[substitute='"+requirement+"']"));
+            $(li).insertAfter($("[substitute-conditionID='"+substitute+"']"));
+
+            // update step 4, substitute list
+            var userCourse = await user.getCourse(courseCode);
+            console.log(userCourse, userCourse.semester == '0');
+            if (userCourse && userCourse.semester == '0')
+            {
+                console.log(courseButton);
+                $(courseButton).addClass('selected').click().addClass('locked');
+            }
 
             courseInfo();
         }
@@ -520,9 +531,9 @@ export async function requirementCourse(ele)
     else 
     {
         console.log('substitute');
-        $('#course-directory').show(500);
+        // $('#course-directory').show(500);
         $('#credit-count').hide();
-        $('#course-search-content').attr('requirement', $(ele).attr('substitute'));
+        $('#course-search-content').attr('substitute', $(ele).attr('substitute-conditionID'));
     }
 
     console.log(user);
