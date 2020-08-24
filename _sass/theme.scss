@@ -263,21 +263,22 @@ ul {
 
 .locked {
   @extend .selected;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(70,70,70,0.4);
+  border-color: rgba(255,255,255,0.2);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(70,70,70,0.4);
+    border-color: rgba(255,255,255,0.2);
     pointer-events: none;
   }
 }
 
 .unfulfilled {
-  background-color: rgba(255, 166, 166, 0.2) !important;
+  background-color: $unfulfilled !important;
 }
 
 .fulfilled {
-  background-color: rgba(166, 255, 166, 0.2) !important;
+  background-color: $fulfilled !important;
 }
 
 
@@ -315,7 +316,7 @@ ul {
   border: none;
 }
 
-.next {
+#next {
   position: fixed;
   top: 45%;
   right: 5%;
@@ -338,8 +339,8 @@ ul {
   }
 }
 
-.prev {
-  @extend .next;
+#prev {
+  @extend #next;
   left: 5%;
 
   img {
@@ -380,6 +381,17 @@ ul {
 
 .content {
   text-align: center;
+  @include large {
+    padding-top: 2vw;
+  }
+
+  @include medium {
+    padding-top: 1vw;
+  }
+
+  @include small {
+    padding-top: 0.5vw;
+  }
 }
 
 .main-content {
@@ -393,18 +405,18 @@ ul {
 
   @include large {
     max-width: 64rem;
-    padding: 2rem 6rem;
+    // padding: 1rem 3rem;
     margin: 0 auto;
     font-size: 1.1rem;
   }
 
   @include medium {
-    padding: 2rem 4rem;
+    // padding: 1rem 2rem;
     font-size: 1.1rem;
   }
 
   @include small {
-    padding: 2rem 1rem;
+    // padding: 1rem 0.5rem;
     font-size: 1rem;
   }
 
@@ -413,6 +425,8 @@ ul {
 /**           MODALS          **/
 
 .modal {
+  z-index: 99;
+
   .modal-background {
     position: fixed;
     display: table;
@@ -460,19 +474,21 @@ ul {
     max-height: 50vh;
 
     li {
-      background-image: linear-gradient(to bottom, #F79F79, #F7D08A, #E3F09B);
+      background-image: linear-gradient(to bottom, $theme-orange, $theme-yellow, $theme-green);
     }
 
   }
 }
 
+
+/**          STEP 4 requirements        **/
 #requirement-list {
   display: box;
 
   .requirement-container
   {
     display: block;
-    padding: 2vw;
+    padding: 1.5vw;
     // margin: 0;
     margin: auto;
     text-align: left;
@@ -485,11 +501,7 @@ ul {
 
     color: $header-heading-color;
   
-   
-
   }
-
-  
 }
 
 .course-container{
@@ -511,7 +523,7 @@ ul {
 
     font-weight: bold;
   
-    background-image: linear-gradient(to right, #F79F79, #F7D08A, #E3F09B);
+    background-image: linear-gradient(to right, $theme-orange, $theme-yellow, $theme-green);
     background-attachment: fixed;
     -webkit-background-clip: text, content-box;
     -webkit-text-fill-color: transparent;
@@ -525,6 +537,23 @@ ul {
 
 }
 
+#credit-count {
+  position: fixed;
+  top: 1vw;
+  right: 1vw;
+
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+
+  border-style: solid;
+  border-width: 0.1vw;
+  border-radius: 0.3rem;
+
+  padding: 1vw;
+}
+
 .block-course-container {
   @extend .course-container;
   white-space: normal;
@@ -533,10 +562,34 @@ ul {
 
 .star {
   display: inline-block;
+  font-size: 3vh;
 }
 
 
-// dragable semester stuff
+/**           STEP 5 PREREQUISITES        **/
+.prerequisite-form {
+  position: relative;
+}
+
+
+.choice-form {
+  color: white;
+
+  div {
+    // display: inline-block;
+  }
+}
+
+.form-buttons {
+  position: fixed;
+  bottom: 5vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+/**           STEP 6 DRAGGABLE        **/
 #development-semester-list {
   white-space: nowrap;
 
@@ -555,6 +608,7 @@ ul {
   border-width: 0.2vw;
   border-radius: 0.3rem;
   padding: 0.5vw;
+  position: relative;
 
   li {
     margin: 0.5vw;
@@ -565,18 +619,48 @@ ul {
   }
 }
 
+.semester-info {
+  position: absolute;
+  top: 0.5vw;
+  right: 0.5vw;
+
+  font-weight: bold;
+  display: inline-flex;
+
+  .credits {
+    @extend .btn;
+
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      pointer-events:none;
+    }
+
+    div {
+      padding: 0 1vw 0 1vw;
+    }
+  }
+}
+
 
 #chosen-courses {
   position: sticky;
   position:-webkit-sticky;
   top: 0;
+  // margin-left: calc(-50vw + 50%);
+  // width: 100vw;
+  z-index: 10;
 
   .drop-box {
     background-color: rgb(34, 34, 34);
   }
 
   ul {
-    max-height: 15vw;
+    max-height: 10vw;
     overflow: auto;
   }
 
@@ -590,6 +674,10 @@ ul {
   border-color: rgba(255, 0, 0, 0.2);
 }
 
+
+.gu-mirror {
+  list-style-type: none;
+}
 
 // input
 input[type="number"] {
@@ -652,5 +740,5 @@ input[type=number]::-webkit-outer-spin-button {
   height: 3rem;
   font-weight: bold;
   text-align: center;
-  color:#9be3df;
+  color:$theme-orange;
 }

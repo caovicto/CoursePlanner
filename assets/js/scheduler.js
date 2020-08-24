@@ -1,29 +1,28 @@
 import { User } from './src/user.mjs';
 import * as UTILITIES from './src/utilities.mjs';
-import * as DATA from './src/data.mjs';
 import * as ENABLE from './src/enable.mjs';
-
+import * as DATA from './src/data.mjs';
+import { subjects } from './src/data.mjs';
 
 export var user = new User();
 
 
 // load ajax for DOM in schedule.html
-$(document).ready(function () {
-    // enable jquery buttons
-    ENABLE.search();
-    ENABLE.pageNavigation();
-    ENABLE.modal();
-    ENABLE.pastCourseInput();
-    ENABLE.semesterInfoInput();
-    
-    // Set up search functionality
-    populateMajors();
-    populateMinors();
-    populateCourses();
-
+$(document).ready(async function () {
+    DATA.loadCourses().then ( function() {
+        // enable jquery buttons
+        ENABLE.search();
+        ENABLE.pageNavigation();
+        ENABLE.modal();
+        ENABLE.pastCourseInput();
+        ENABLE.semesterInfoInput();
+        
+        // Set up search functionality
+        populateMajors();
+        populateMinors();
+        populateCourses();
+    });
 });
-
-
 
 
 
@@ -77,7 +76,7 @@ async function populateMajors()
             user.addProgram(major, DATA.majors.get(major));
         }
 
-        populateRequirements();
+        // populateRequirements();
     });
 };
 
@@ -117,7 +116,7 @@ async function populateMinors()
             user.addProgram(minor, DATA.minors.get(minor));
         }
 
-        populateRequirements();
+        // populateRequirements();
     });
 };
 
@@ -126,7 +125,7 @@ async function populateCourseSearch()
 {
     for (let subject of DATA.subjects.values())
     {
-        for (let [courseCode, courseContent] of Object.entries(subject.courses))
+        for (let courseCode of subject.get('courses').keys())
         {
             var li = $(document.createElement('li'))
                 .attr("code", courseCode)
@@ -136,6 +135,7 @@ async function populateCourseSearch()
             $(button).addClass("full");
             
             li.append(button);
+            $(li).click( function() { ENABLE.courseSearchSelect(this); });
             $("#course-search-content").append(li);
         }
     }
@@ -145,57 +145,17 @@ async function populateCourseSearch()
 
 async function populateCourses()
 {
-    await DATA.loadCourses();
-
     await populateCourseSearch();
 
     console.log("courses loaded");
 
-    ENABLE.courseSearchSelect();
+    // ENABLE.courseSearchSelect();
     ENABLE.courseInfo();
-}
 
-/// getting all requirements
-
-async function autoSelect(condition)
-{
-    var number = parseInt($(condition).attr('number'), 10);
-    var courses = $(condition).find("li[code!='substitute']");
-    // console.log(condition, number, courses);
-    if ($(condition).attr('type') == 'course' && courses.length == number)
-    {
-        courses.addClass('selected');
-    }
-    else 
-    {
-        var totalCredits = 0;
-
-        for (let course of courses)
-        {
-            totalCredits += parseInt($(course).attr('credits'));
-        }
-
-        if (totalCredits == number)
-        {
-            courses.addClass('selected');
-        } 
-    }
 }
 
 
-async function populateRequirements()
-{
-    var requirements = await user.getRequirements();
-    $('#requirement-list').empty();
 
-    for (let requirement of requirements)
-    {
-        var reqDiv = await  UTILITIES.createRequirementDiv(requirement);
-        $('#requirement-list').append( reqDiv );
-    }
 
-    ENABLE.courseInfo();
-    ENABLE.requirementCourses();  
-}
 
 

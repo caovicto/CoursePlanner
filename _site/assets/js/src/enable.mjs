@@ -6,32 +6,75 @@ import {user} from '../scheduler.js';
 
 var shownCourses = new Set();   // showing course search
 
+// USER INFO
+async function updateCredits()
+{
+    let reqCredits = await user.getRequiredCredits();
+    let userCredits = await user.getCredits();
+
+    $("#required-credits").text( reqCredits );
+    $("#user-credits").text( userCredits ).css('color', 'rgba(166, 255, 166, 0.8)');
+    if (userCredits < reqCredits)
+    {
+        $("#user-credits").css('color', 'rgba(255, 166, 166, 0.8)');
+    }
+}
+
+
+async function populateRequirements()
+{
+    var requirements = await user.getRequirements();
+    $('#requirement-list').empty();
+
+    for (let requirement of requirements)
+    {
+        var reqDiv = await  UTILITIES.createRequirementDiv(requirement);
+        $('#requirement-list').append( reqDiv );
+    }
+
+    courseInfo();
+
+}
+
 // GENERAL PAGE FUNCTIONS
-function next()
+async function next()
 {
     var page = $('[step]:visible').attr('step');
     var stepNumber = parseInt(page, 10);
     var currPage = "[step='"+stepNumber+"']";
     var nextPage = "[step='"+(stepNumber+1)+"']";
+    
+    switch (stepNumber)
+    {
+        case 1:
+            $("#prev").show(500);
+            break;
 
-    console.log(currPage, nextPage);
+        case 2:
+            if (!user.hasPrograms())
+                return;
 
-    if (stepNumber == 6)
-    {
-        return;
+            await populateRequirements();
+
+            break;
+
+        case 3:
+            checkRequirements();
+            // requirementCourses();
+            updateCredits();
+
+            break;
+
+        case 4:
+            await populatePrerequisites();
+
+            break;
+
+        case 7:
+            return;
+
     }
-    else if ( stepNumber == 2 && !user.hasPrograms())
-    {
-        return;
-    }
-    else if ( stepNumber == 3)
-    {
-        checkRequirements();
-    }
-    // else if (stepNumber == 4 && $('.unfulfilled').length)
-    // {
-    //     return;
-    // }
+
 
     $(currPage).fadeOut(500, function() {
         $(nextPage).fadeIn(500);
@@ -46,10 +89,19 @@ function prev()
     var currPage = "[step='"+stepNumber+"']";
     var prevPage = "[step='"+(stepNumber-1)+"']";
 
-    console.log(currPage, prevPage);
+    switch (stepNumber)
+    {
+        case 2:
+            $("#prev").hide(500);
 
-    if (stepNumber == 1)
-        return;
+            break;
+
+        case 5:
+            // $("#next").hide(500);
+
+            break;
+
+    }
 
     $(currPage).fadeOut(500, function() {
         $(prevPage).fadeIn(500);
@@ -58,12 +110,12 @@ function prev()
 
 export function pageNavigation()
 {
-    $(".prev").click(prev);
+    $("#prev").click(prev);
 
-    $(".next").click(next);
+    $("#next").click(next);
 
     $(document).keydown( function(event) {
-        console.log('key ', event.which);
+        // console.log('key ', event.which);
         // left arrow key
         if (event.which == 37)
         {
@@ -148,18 +200,15 @@ function onClose()
     if ($(".modal").is(":visible"))
         return;
 
-    if ($("[step='5']").is(":visible"))
-        $("#chosen-courses").show(400);
-
-    $(".prev").show();
-    $(".next").show(); 
+    $("#prev").show();
+    $("#next").show(); 
 }
 
 export async function modal()
 {
     $("[modalBtn='open']").click( async function()
     {
-        if ($("[step='5']").is(":visible"))
+        if ($("[step='6']").is(":visible"))
             $("#chosen-courses").hide();
 
         var modalID = "#"+$(this).attr('modalID');
@@ -179,8 +228,8 @@ export async function modal()
 
         $(modalID).show(500);
 
-        $(".prev").hide();
-        $(".next").hide();
+        $("#prev").hide();
+        $("#next").hide();
     });
 
 
@@ -199,6 +248,13 @@ export async function modal()
 
         $($(this).parent()).hide(500, onClose);
     });
+}
+
+
+// STEP 5 ADD INS
+export function prerequisiteForm()
+{
+    $("#")
 }
 
 
@@ -229,7 +285,7 @@ export function pastCourseInput()
 
             if (course)
             {
-                if (!user.getCourse(courseCode))
+                if (!(await user.getCourse(courseCode)))
                 {
                     addPastCourse(courseCode);
                 }
@@ -250,7 +306,7 @@ export function removePastCourse(courseCode)
     // update step 4, requirement list
     $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").removeClass('locked').click();
 
-    // update step 5, create schedule
+    // update step 6, create schedule
     $("[semester='0']").find("li[code='"+courseCode+"']").remove();
     if (!$("[semester='0']").find('li').length)
     {
@@ -261,97 +317,106 @@ export function removePastCourse(courseCode)
 
 async function addPastCourse(courseCode)
 {
-    // update user info
-    var course = await DATA.getCourse(courseCode);
-    user.addCourse(courseCode, course, 0);
-
+    console.log(courseCode);
     // update step 3, past course input
-    var pastCourse = $(document.createElement('li'))
+    if (!(await user.getCourse(courseCode)))
+    {
+        var pastCourse = $(document.createElement('li'))
         .attr("code", courseCode);
 
-    var button = $(document.createElement('div'))
-        .addClass('btn')
-        .attr('code', courseCode)
-        .append(await UTILITIES.createText(courseCode));        
+        var button = $(document.createElement('div'))
+            .addClass('btn')
+            .attr('code', courseCode)
+            .append(await UTILITIES.createText(courseCode));        
 
-    var remove = $(await UTILITIES.createText('x'))
-        .addClass('remove');
+        var remove = $(await UTILITIES.createText('x'))
+            .addClass('remove');
 
-    pastCourse.append(button);
-    button.append(remove);
+        // add in remove
+        $(remove).click( function() {
+            console.log(courseCode);
+            var courseCode = $($(this).parent()).attr("code");
+            removePastCourse(courseCode);
+        });
 
-    $("#past-course-list").append(pastCourse); 
-    $("#course-search-content").find("div[code='"+courseCode+"']").addClass('selected');  
+        pastCourse.append(button);
+        button.append(remove);
 
-    // update step 4, requirement list
-    $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").addClass(['selected', 'locked']).click();
+        $("#past-course-list").append(pastCourse); 
+        $("#course-search-content").find("div[code='"+courseCode+"']").addClass('selected');
 
-    // update step 5, create schedule
-    var courseButton = $( document.createElement('li') )
-        .attr("code", courseCode)
-        .append( await UTILITIES.createCourseButton(courseCode) );
+        // update step 4, requirement list
+        $("#requirement-list").find("[class~='btn'][code='"+courseCode+"']").addClass('selected').click().addClass('locked');
 
-    $("[semester='0']").find('.block-course-container').append(courseButton); 
-    courseInfo();
+        // update step 6, create schedule
+        var courseButton = await UTILITIES.createCourseButton(courseCode);
+        var li = $( document.createElement('li') )
+            .attr("code", courseCode)
+            .append( courseButton );
 
+        $("[semester='0']").find('.block-course-container').append(li); 
+        courseInfo();
 
-    // add in remove
-    $(".remove").click( function() {
-        console.log(courseCode);
-        var courseCode = $($(this).parent()).attr("code");
-        removePastCourse(courseCode);
-    });
+        // update user info
+        var course = await UTILITIES.getButtonData(courseButton)
+        await user.addCourse(courseCode, course, '0');
+
+        console.log(user);
+    }
 
     // show past course
     $("[semester='0']").show();
-
-    console.log(user);
 }
 
 
-export async function courseSearchSelect()
+export async function courseSearchSelect(ele)
 {
-    $("#course-search-content").children().click( async function() {
-        // step 3, course input
-        if ($("[step='3']").is(':visible'))
+    console.log('hello');
+
+    if ($("[step='3']").is(':visible'))
+    {
+        console.log(ele);
+        var courseCode = $(ele).attr("code");
+        console.log(courseCode);
+
+        if (!(await user.getCourse(courseCode)))
         {
-            var button = $(this).children()[0];
-            var courseCode = $(button).attr("code");
-
-            if (!user.getCourse(courseCode))
-            {
-                addPastCourse(courseCode);
-            }
-            else
-            {
-                removePastCourse(courseCode);
-            }
-        } 
-        // step 4, requirement fillout
-        else 
+            addPastCourse(courseCode);
+        }
+        else
         {
-            var button = $(this).children()[0];
-            var courseCode = $(button).attr("code");
+            removePastCourse(courseCode);
+        }
+    } 
+    // step 4, requirement fillout
+    else 
+    {
+        var courseCode = $(ele).attr("code");
 
-            var requirement = $('#course-search-content').attr('requirement');
+        var requirement = $('#course-search-content').attr('requirement');
 
-            if (!$("[substitute='"+requirement+"']").parent().find("[code='"+courseCode+"']").length)
-            {
-                console.log(courseCode, requirement);
-                var li = $( document.createElement('li') )
-                    .attr("code", courseCode)
-                    .append( await UTILITIES.createCourseButton(courseCode) );
-                $(li).insertAfter($("[substitute='"+requirement+"']"));
-    
-                courseInfo();
-                requirementCourses();  
-            }
-        } 
+        if (!$("[substitute='"+requirement+"']").parent().find("[code='"+courseCode+"']").length)
+        {
+            console.log(courseCode, requirement);
+            
+            var li = $( document.createElement('li') )
+                .attr("code", courseCode)
+                .append( await UTILITIES.createCourseButton(courseCode) )
+                .click( function() { requirementCourse(this); });
+
+
+            $(li).insertAfter($("[substitute='"+requirement+"']"));
+
+            courseInfo();
+        }
+    } 
         
-    });
 }
 
-// REQUIREMENT
+
+/**
+ * REQUIREMENTS
+ */
 
 export function checkRequirements()
 {
@@ -399,33 +464,38 @@ export function checkRequirements()
     });
 }
 
-export async function requirementCourses()
+export async function requirementCourse(ele)
 {
-    $("#requirement-list").find("li").click( async function() {
-        var courseCode = $(this).attr("code");
+    // $("#requirement-list").find("li").click( async function() {
+    var courseCode = $(ele).attr("code");
 
-        if (courseCode != "substitute")
+    if (courseCode != "substitute")
+    {
+        var userCourse = await user.getCourse(courseCode);
+        console.log(userCourse);
+        var button = $(ele).find('.btn');
+        // if user has course and is not a past course
+        if (userCourse && user.getCourseSemester(courseCode) == '-1')
         {
-            // if user has course and is not a past course
-            if (user.getCourse(courseCode) && user.getCourseSemester(courseCode) == -1)
-            {
-                user.removeCourse(courseCode);                    
-                $(this).find('.btn').removeClass('selected');
+            user.removeCourse(courseCode);                    
+            button.removeClass('selected');
 
-                // remove course from chosen courses
-                $("[semester='-1']").find("[code='"+courseCode+"']").remove();
-            }
-            else if (!user.getCourse(courseCode))
+            // remove course from chosen courses
+            $("[semester='-1']").find("[code='"+courseCode+"']").remove();
+        }
+        else if (!userCourse)
+        {
+            if (!$(button).hasClass('selected'))
             {
-                var course = await DATA.getCourse(courseCode);
-                console.log(course);
-                user.addCourse(courseCode, course, -1);
-                $(this).find('.btn').addClass('selected');
-
+                var course = await UTILITIES.getButtonData(button);
+       
+                user.addCourse(courseCode, course, '-1');
+                button.addClass('selected');
+    
                 // add course to chosen courses in step 5
                 var courseButton = $( document.createElement('li') )
-                .attr("code", courseCode)
-                .append( await UTILITIES.createCourseButton(courseCode) );
+                    .attr("code", courseCode)
+                    .append( await UTILITIES.createCourseButton(courseCode) );
         
                 if ($(courseButton).find('.info').length && !$("[semester='-1']").find("[code='"+courseCode+"']").length)
                 {
@@ -433,20 +503,46 @@ export async function requirementCourses()
                     courseInfo();
                 }
             }
-        }
-        else 
-        {
-            $('#course-directory').show();
-            $('#course-search-content').attr('requirement', $(this).attr('substitute'));
-        }
 
-        console.log(user);
+            else 
+            {
+                $(button).removeClass('selected');
+            }
+            
+        }
+    }
+    else 
+    {
+        console.log('substitute');
+        $('#course-directory').show();
+        $('#course-search-content').attr('requirement', $(ele).attr('substitute'));
+    }
 
-    });  
+    console.log(user);
+    updateCredits();
+
+    // });  
 }
 
 
-// create schedule
+/**
+ * PREREQUISITES
+ */
+export async function populatePrerequisites()
+{
+    for (let course of user.getCourses().values())
+    {
+        console.log(course);
+        var parsed = await UTILITIES.parsePrerequisite(course.info.get('prerequisite'));
+        console.log(parsed);
+    }
+}
+
+
+
+/**
+ * EDIT SCHEDULE
+ */
 export function semesterInfoInput()
 {
     $("#start-semester").find('.btn').click( function() {
@@ -479,6 +575,7 @@ export function semesterInfoInput()
         }
 
         DRAGGABLE.enable();
+        
 
         // hide past courses if needed
         if (!$("[semester='0']").find('li').length)
@@ -492,9 +589,10 @@ export function semesterInfoInput()
 
         $(modalID).hide();
 
-        $(".prev").show();
-        $(".next").show();
-        $("#chosen-courses").show();
+        $("#prev").show();
+        $("#next").show();
+        // $("#chosen-courses").show();
+        $("#development-semester-list").show(400);
         
     });
 }

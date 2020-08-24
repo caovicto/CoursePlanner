@@ -42,7 +42,17 @@ export async function loadCourses()
         UTILITIES.sleep(500);
     }
 
-    subjects = new Map(Object.entries(tempCourses).sort());
+    tempCourses = new Map(Object.entries(tempCourses).sort());
+
+    for (let [subject, info] of tempCourses.entries())
+    {
+        tempCourses.set(subject, new Map(Object.entries(info)));
+        tempCourses.get(subject).set('courses', new Map(Object.entries(info.courses).sort()));
+    }
+
+    subjects = tempCourses;
+
+    console.log(subjects);
 
     return;
 };
@@ -54,10 +64,14 @@ export async function getCourse(courseCode)
     if (subjects.get(subjectCode))
     {
         // console.log(courseCode, subjects.get(subjectCode).courses[courseCode]);
-        return subjects.get(subjectCode).courses[courseCode];
+        return subjects.get(subjectCode).get('courses').get(courseCode);
+    }
+    else
+    {
+        return undefined;
     }
 
-    return undefined;
+
 }
 
 

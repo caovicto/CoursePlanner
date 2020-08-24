@@ -30,7 +30,8 @@
     <!-- Page Content -->
     <main id="content" class="main-content" role="main">
 
-      
+      <!--  -->
+
 
 <script type="module" src="/CoursePlanner2/assets/js/scheduler.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
@@ -111,8 +112,6 @@ CSE803	3	current'"></textarea>
             <input class="search-bar" type="text" autocomplete="off" id="major-search-bar" placeholder="Search Major Name">
             <ul class="search-content" id="major-search-content"></ul>
         </div>
-
-        <div class="next"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
     </div>
 
 
@@ -154,14 +153,37 @@ CSE803	3	current'"></textarea>
         </div>
         
         <h1>Complete Requirements</h1>
-        <div class="content" id="requirement-list"></div>
-        <div class="side-box"></div>
+        <div id="credit-count">
+            <h3>Required Credits</h3>
+            <div id="required-credits"></div>
+            <h3>User Credits</h3>
+            <div id="user-credits"></div>
+        </div>
 
- 
+        <div class="content" id="requirement-list"></div>
     </div>
 
+    <!-- ADD IN  -->
+    <div class="content" step='5' hidden>        
+        <h1>Complete Prerequisites</h1>
+
+        <div id="prerequisite-form">
+            <div class="content" id="prerequisite-list">
+                
+            </div>
+
+    
+        </div>
+
+
+
+        
+    </div>
+
+
+
     <!-- ARRANGE COURSES -->
-    <div class="content" step='5' hidden>
+    <div class="content" step='6' hidden>
         <!-- Incomplete requirements modal -->
         <div class="modal" id="semester-input">
             <div class="modal-background">
@@ -193,21 +215,18 @@ CSE803	3	current'"></textarea>
 
         
         <h1>Create Schedule</h1>
-        <div id="development-semester-list">
-            <div id="chosen-courses" hidden>
+        <div id="development-semester-list" hidden>
+            <div id="chosen-courses">
                 <div class='drop-box' semester='-1'>
                     <h3>Chosen Courses</h3>
-                    <ul class="block-course-container drag-list">
-                        <li><div class="btn"><div>temp</div></div>  
-                    </ul>
+                    <ul class="block-course-container drag-list"></ul>
                 </div>
             </div>
 
             <div id="semester-boxes">
                 <div class='drop-box' semester='0'>
                     <h3>Previous Courses</h3>
-                    <ul class="block-course-container">
-                    </ul>
+                    <ul class="block-course-container"></ul>
                 </div>  
             </div>
 
@@ -217,16 +236,16 @@ CSE803	3	current'"></textarea>
     </div>
 
     <!-- ARRANGE COURSES -->
-    <div class="content" step='6' hidden>
+    <div class="content" step='7' hidden>
         <h1>Completed Schedule</h1>
         <div class="content" id="completed-semester-list"></div>
         <div id="download"></div>
 
-        <div class="prev"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+        <div class="prev"><img src="assets/images/rightArrow.png"></div>
     </div>
 
-    <div class="prev"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
-    <div class="next"><img src="https://cdn2.iconfinder.com/data/icons/250-perfect-vector-pictograms/48/9.5-512.png"></div>
+    <div id="prev" hidden><img src="assets/images/rightArrow.png"></div>
+    <div id="next"><img src="assets/images/rightArrow.png"></div>
 
 </div>
 

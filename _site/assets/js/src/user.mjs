@@ -4,6 +4,8 @@ class User
     {
         this.programs = new Map();
         this.courses = new Map();
+        this.requiredCredits = 0;
+        this.totalCredits = 0;
     }
 
     async getRequirements()
@@ -22,8 +24,36 @@ class User
         return requirements;
     }
 
+    // get credits
+    async getRequiredCredits()
+    {
+        let credits = 0;
+        for (let program of this.programs.values())
+        {
+            credits += parseInt(program.credits, 10);
+        }
+        return credits;
+    }
+
+    async getCredits()
+    {
+        let credits = 0;
+        for (let course of this.courses.values())
+        {
+            // console.log(course.info, course.info.get('credits'))
+            credits += parseInt(course.info.get('credits'), 10);
+        }
+        return credits;
+    }
+
+
     // getting course
-    getCourse(course)
+    getCourses()
+    {
+        return this.courses;
+    }
+
+    async getCourse(course)
     {
         return this.courses.get(course);
     }
@@ -38,14 +68,15 @@ class User
         return this.courses.get(course).semester;
     }
 
-    addCourse(course, courseInfo, semester)
+    async addCourse(courseCode, course, semester)
     {
-        this.courses.set(course, {'info':courseInfo, 'semester':semester});
+        this.courses.set(courseCode, {'info':course, 'semester':semester});   
     }
 
     removeCourse(course)
     {
         this.courses.delete(course);
+        console.log('hello', this.courses);
     }
 
     // getting course
@@ -57,7 +88,6 @@ class User
     addProgram(program, programInfo)
     {
         this.programs.set(program, programInfo);
-        console.log(this);
     }
 
     removeProgram(program)

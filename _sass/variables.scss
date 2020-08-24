@@ -1,6 +1,13 @@
 // Background
 $bg-color:#363636 !default; 
 
+// general colors
+$fulfilled: rgba(166, 255, 166, 0.2) !default;
+$unfulfilled: rgba(255, 166, 166, 0.2) !default;
+$theme-orange: #F79F79 !default;
+$theme-yellow: #F7D08A !default;
+$theme-green: #E3F09B !default;
+
 // Breakpoints
 $large-breakpoint: 64em !default;
 $medium-breakpoint: 42em !default;
