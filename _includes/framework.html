@@ -2,6 +2,10 @@
 {% assign arrow = '<img src="assets/images/rightArrow.png">' %}
 
 <script type="module" src="{{ site.baseurl }}/assets/js/scheduler.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.css">
 
@@ -67,14 +71,29 @@ CSE803	3	current'"></textarea>
 </div>
 
 
-<!-- PAGES -->
 
-<div id="schedule-content">
-    <!-- DISCLAIMER -->
-    <div class="content" id="disclaimer" step='0' hidden>
-        <div page="0"></div>
+<!-- DISCLAIMER -->
+<div class="content" id="disclaimer">
+    <div class="form-container unfulfilled" style="text-align: center;">
+        <div class='disclaimer'>
+            <h1>DISCLAIMER</h1>
+            <span>
+            All the information on this website is published in good faith and for general information purpose only. The Course Planner does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (https://caovicto.github.io/CoursePlanner2/), is strictly at your own risk. will not be liable for any losses and/or damages in connection with the use of our website.
+        
+            Please be also aware that when you leave this website, other sites may have different privacy policies and terms which are beyond this control. Please be sure to check the Privacy Policies of these sites as well as their "Terms of Service" before engaging in any business or uploading any information.
+            </span>
+            <h2>Consent</h2>
+            <span>
+            By using this website, you hereby consent to this disclaimer and agree to its terms.
+            </span>
+        </div>
+     
+        <div class="btn" id="disclaimer-agreement" style="margin-top:5vh">I Agree</div>
     </div>
+</div>
 
+<!-- PAGES -->
+<div id="schedule-content" hidden>
     <!-- MAJOR -->
     <div class="content" step='1'>
         <h1>Choose Major</h1>
@@ -216,7 +235,7 @@ CSE803	3	current'"></textarea>
         </div>
 
         
-        <h1>Create Schedule</h1>
+        <h1 class='title'>Create Schedule</h1>
         <div id="development-semester-list" hidden>
             <div id="chosen-courses">
                 <div class='drop-box' semester='-1'>
@@ -246,15 +265,9 @@ CSE803	3	current'"></textarea>
 
         </div>
 
+        <div class="btn" id="print" style="margin-top: 5vh">Print</div>
+
  
-    </div>
-
-    <!-- ARRANGE COURSES -->
-    <div class="content" step='7' hidden>
-        <h1>Completed Schedule</h1>
-        <div class="content" id="completed-semester-list"></div>
-        <div id="download"></div>
-
     </div>
 
 

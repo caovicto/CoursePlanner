@@ -1,37 +1,59 @@
 import * as UTILITIES from './utilities.mjs';
-
-var courseMap = new Map();
-
-
+import { user } from '../scheduler.js';
+import { checkPrerequisite } from './utilities.mjs';
 
 function resetContainers()
 {
+    console.log('resetting');
+    $("[class='drop-box']").not("[semester='-1']").not("[semester='0']").each( async function () {
+        console.log(this);
+        $(this).removeClass(['red', 'green']);
+    });
 }
 
 
 
 async function colorContainers(ele)
 {
-    console.log(courseMap);
-
     var prerequisite = $(ele).find('[prerequisite]').attr('prerequisite');
-    console.log(prerequisite);
+    // console.log(ele, $(ele).find('[prerequisite]'), prerequisite);
 
-    if (prerequisite)
+    var boxes = $("[class='drop-box']").not("[semester='-1']").not("[semester='0']");
+    for (let box of boxes)
     {
-        var parsed = await UTILITIES.parsePrerequisite(prerequisite);
-        console.log(parsed);
+        var semester = parseInt($(box).attr('semester'), 10);
+        if (!(await checkPrerequisite(prerequisite, semester)))
+        {
+            $(box).addClass('red');
+        }
+        else 
+        {
+            $(box).addClass('green');
+        }
     }
-
-
 }
 
-function updateCourse(ele, container)
+async function updateCourse(ele, container)
 {
     var semester = $(container).attr('semesterID');
     var courseCode = $(ele).attr('code');
 
-    courseMap.set(courseCode, semester)
+
+    user.setCourseSemester(courseCode, semester);
+
+    // $('[new-semester]').find("[code][class~='btn']").each( async function () {
+    //     var prerequisite = $(this).find('[prerequisite]').attr('prerequisite');
+
+    //     if (! (await UTILITIES.checkPrerequisite(prerequisite)) )
+    //     {
+    //         console.log(await UTILITIES.checkPrerequisite(prerequisite));
+    //         $(this).find('.btn').addClass('unfulfilled');
+    //         return;
+    //     }
+    
+    //     $(this).find('.btn').removeClass('unfulfilled');
+    // });
+
 }
 
 function updateCredits(ele, container, out)
@@ -52,11 +74,18 @@ export async function enable()
     dragula(
         {
             containers: boxes,
-            // removeOnSpill: true
+            accepts: (el, target) => {
+                var containerSem = $(target).parent().find('.season-btn').text();
+                var courseSem = $(el).find('[semester]').attr('semester');
+
+                if (courseSem.includes(containerSem))
+                    return true;
+                else
+                    return false;
+            }
         })
         .on('drag', function (ele, source) {
             updateCredits(ele, source, true);
-            colorContainers(ele);
         })
         .on('cancel', function (ele, container) {
             updateCredits(ele, container, false);

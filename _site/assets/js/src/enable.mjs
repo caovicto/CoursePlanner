@@ -2,7 +2,7 @@ import * as UTILITIES from './utilities.mjs';
 import * as DATA from './data.mjs';
 import * as DRAGGABLE from './draggable.mjs';
 
-import {user} from '../scheduler.js';
+import { user } from '../scheduler.js';
 import { parsePrerequisite } from './utilities.mjs';
 
 var shownCourses = new Set();   // showing course search
@@ -21,6 +21,25 @@ async function updateCredits()
     {
         $("#user-credits").css('color', 'rgba(255, 166, 166, 0.8)');
     }
+}
+
+async function updateSchedulingPage()
+{
+    var chosenCredits = 0;
+    $('#chosen-courses').find("[code][class~='btn']").each( function() {
+        var addCredit = parseInt($(this).attr('credits'), 10);
+        chosenCredits += (addCredit) ? addCredit : 0;
+    });
+
+    $("#chosen-courses").find("[creditText]").text(chosenCredits);
+
+    var pastCredits = 0;
+    $("[semester='0']").find("[code][class~='btn']").each( function() {
+        var addCredit = parseInt($(this).attr('credits'), 10);
+        pastCredits += (addCredit) ? addCredit : 0;
+    });
+
+    $("[semester='0']").find("[creditText]").text(pastCredits);
 }
 
 /** STEP 4
@@ -50,7 +69,7 @@ function prerequisiteForm()
     
     for (let course of user.getCourses().values())
     {
-        if (course.semester != '1')
+        if (course.semester != '-2')
         {
             var courseCode = course.info.get('code');
             $("#prerequisite-list").find("[class~='btn'][code='"+courseCode+"']").addClass('locked');
@@ -67,18 +86,19 @@ export async function populatePrerequisites()
 
     for (let course of user.getCourses().values())
     {
-        if (course.semester == "1")
+        if (course.semester == "-2")
         {
             user.removeCourse(course.info.get('code'));
+            // remove course from chosen courses
+            $("[semester='-1']").find("[code='"+course.info.get('code')+"']").remove();
         }
     }
-
 
     for (let course of user.getCourses().values())
     {
         if (course.semester == "-1")
         {
-            var fulfilled = await checkPrerequisite(course.info.get("prerequisite"));
+            var fulfilled = await UTILITIES.checkPrerequisite(course.info.get("prerequisite"));
 
             // add div if not fulfilled
             if (!fulfilled)
@@ -97,6 +117,8 @@ export async function populatePrerequisites()
     {
         $('#prerequisite-list').append( $(document.createElement('h2')).text("You're all Set!") );
     }
+
+    updateCredits();
 
 }
 
@@ -143,15 +165,12 @@ async function next()
 
         // prerequisites
         case 5:
-            $("#credit-count").hide(500);
-
-            break;
-
-        // edit schedule
-        case 6:
             $("#next").hide(500);
+            $("#credit-count").hide(500);
+            updateSchedulingPage();
 
             break;
+
     }
 
 
@@ -194,13 +213,9 @@ function prev()
 
         //create schedule
         case 6:
+            $("#next").show(500);
             $("#credit-count").show(500);
             
-            break;
-
-        case 7:
-            $("#next").show(500);
-
             break;
 
     }
@@ -313,6 +328,9 @@ function onClose()
     if ($("[step='4'],[step='5']").is(":visible"))
         $('#credit-count').show(500);
 
+    if ($("[step='6']").is(":visible"))
+        $("#development-semester-list").show(500);
+
     $("#prev").show(500);
     $("#next").show(500); 
 }
@@ -322,7 +340,7 @@ export async function modal()
     $("[modalBtn='open']").click( async function()
     {
         if ($("[step='6']").is(":visible"))
-            $("#chosen-courses").hide();
+            $("#development-semester-list").hide();
 
         if ($("[step='4'],[step='5']").is(":visible"))
             $('#credit-count').hide(500);
@@ -527,18 +545,20 @@ export async function courseSearchSelect(ele)
         {
             console.log(courseCode, substitute);
             
-            var courseButton = await UTILITIES.createCourseButton(courseCode);
+            var courseButton = $(await UTILITIES.createCourseButton(courseCode))
+                .click( function() { requirementCourse(this); });
+
             var li = $( document.createElement('li') )
                 .attr("code", courseCode)
-                .append( courseButton )
-                .click( function() { requirementCourse(this); });            
+                .append( courseButton );                           
 
 
             $(li).insertAfter($("[substitute-conditionID='"+substitute+"']"));
 
             // update step 4, substitute list
             var userCourse = await user.getCourse(courseCode);
-            console.log(userCourse, userCourse.semester == '0');
+
+            // console.log(userCourse, userCourse.semester == '0');
             if (userCourse && userCourse.semester == '0')
             {
                 console.log(courseButton);
@@ -720,34 +740,6 @@ export async function prerequisiteInfoInput()
 }
 
 /**
- * 
- * @param prereqContainer 
- */
-async function checkPrerequisite(prereqText)
-{
-    var parsedPrereqs = await UTILITIES.parsePrerequisite(prereqText);
-    console.log(parsedPrereqs);
-
-    // add in user information
-    for (let i = 0; i < parsedPrereqs.length; i++)
-    {
-        if (!UTILITIES.delimeters.includes(parsedPrereqs[i]))
-        {
-            if (await user.getCourse(parsedPrereqs[i]))
-            {
-                parsedPrereqs[i] = true;
-            }
-            else 
-            {
-                parsedPrereqs[i] = false;
-            }
-        }
-    }
-
-    return await UTILITIES.solvePrerequisite(parsedPrereqs);
-}
-
-/**
  * 'clicks' on all buttons in requirement list with courseCode
  * @param courseCode to find and click
  */
@@ -766,7 +758,7 @@ async function clickPrerequisiteCourse(courseCode)
         var prereqContainer = $(this).closest('.prerequisite-container');
         console.log(prereqContainer);
 
-        if (await checkPrerequisite($(prereqContainer).attr('prerequisiteText')) )
+        if (await UTILITIES.checkPrerequisite($(prereqContainer).attr('prerequisiteText')) )
         {
             $(prereqContainer).removeClass('unfulfilled');
             return;
@@ -776,7 +768,7 @@ async function clickPrerequisiteCourse(courseCode)
     });
 
     var course = await user.getCourse(courseCode);
-    var fulfilled = await checkPrerequisite(course.info.get('prerequisite'));
+    var fulfilled = await UTILITIES.checkPrerequisite(course.info.get('prerequisite'));
 
     // add div if not fulfilled
     if (!fulfilled)
@@ -796,10 +788,9 @@ export async function prerequisiteCourse(ele)
     var courseCode = $(ele).attr("code");
 
     var userCourse = await user.getCourse(courseCode);
-    console.log(userCourse);
 
     // if user has course and is not a past course
-    if (userCourse && user.getCourseSemester(courseCode) == '1')
+    if (userCourse && user.getCourseSemester(courseCode) == '-2')
     {
         user.removeCourse(courseCode);                    
         clickPrerequisiteCourse(courseCode);
@@ -811,15 +802,15 @@ export async function prerequisiteCourse(ele)
     {
         var course = await UTILITIES.getButtonData(ele);
 
-        user.addCourse(courseCode, course, '1');
+        user.addCourse(courseCode, course, '-2');
         clickPrerequisiteCourse(courseCode);
+
+        console.log(user.getCourses());
 
         // add course to chosen courses in step 5
         var courseButton = $( document.createElement('li') )
             .attr("code", courseCode)
             .append( await UTILITIES.createCourseButton(courseCode) );
-
-        console.log(courseButton);
 
         if ($(courseButton).find('.info').length && !$("[semester='-1']").find("[code='"+courseCode+"']").length)
         {
@@ -851,10 +842,10 @@ export function semesterInfoInput()
 
         var semesters = parseInt($("#semester-input-box").val(), 10);
 
-        let semVec = ["F", "S"];
+        let semVec = ["Fall", "Spring"];
         if ($('#start-semester').find('.selected').text() == "Spring")
         {
-            semVec = ["S", "F"];
+            semVec = ["Spring", "Fall"];
         }
 
         for (let i = 0; i < semesters; i++)
@@ -874,6 +865,16 @@ export function semesterInfoInput()
 
         $("#development-semester-list").show(400);
         
+    });
+}
+
+
+
+export function print()
+{
+    $('#print').click( function() {
+        window.print();
+        $("#next").hide();
     });
 }
 

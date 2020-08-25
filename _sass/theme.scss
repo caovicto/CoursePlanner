@@ -22,6 +22,26 @@
   }
 }
 
+@media print {
+  #chosen-courses, #prev, #next, #print, .title, .info {
+    display: none !important;
+  }
+
+
+  #development-semester-list {
+    all: initial;
+
+    .block-course-container {
+      all: initial;
+
+      li, .btn {
+        all: unset;
+        margin-right: 1vw;
+      }
+    }
+  }
+}
+
 
 /**           WHOLE PAGE          **/
 
@@ -153,6 +173,12 @@ ul {
     background-color: rgba(255, 255, 255, 0.13);
   }
 } 
+
+/**           DISCLAIMER          **/
+.disclaimer {
+
+}
+
 
 
 /**           SEARCH CONTENT          **/
@@ -290,15 +316,14 @@ ul {
 }
 
 .info {
-  // @extend .btn;
   display: inline-block;
-  // position: fixed;
-  float: right;
-  
+
   padding: auto;
   margin-left: 1vw;
   background-color: transparent;
   border: none;
+
+  font-weight: bolder;
 
   &:hover
   {
@@ -645,6 +670,12 @@ ul {
     div {
       padding: 0 1vw 0 1vw;
     }
+  }
+
+  .season-btn {
+    @extend .btn;
+    width: 8vw;
+    margin-left: 1vw;
   }
 }
 

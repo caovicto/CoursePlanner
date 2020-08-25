@@ -79,7 +79,15 @@ class User
 
     getCourseSemester(course)
     {
-        return this.courses.get(course).semester;
+        if (this.courses.get(course))
+            return this.courses.get(course).semester;
+        
+        return undefined;
+    }
+
+    setCourseSemester(course, newSemester)
+    {
+        this.courses.get(course)['semester'] = newSemester;
     }
 
     async addCourse(courseCode, course, semester)

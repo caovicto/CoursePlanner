@@ -1,8 +1,9 @@
 import * as DATA from './data.mjs';
 import * as ENABLE from './enable.mjs';
 import { courseSearchSelect } from './enable.mjs';
+import { user } from '../scheduler.js';
 
-var seasons = ['F', 'S', 'SU'];
+var seasons = ['Fall', 'Spring', 'Summer'];
 var colors = ['#F79F79', '#F7D08A', '#E3F09B '];
 export var delimeters = ['(', ')', 'or', 'and', 'OR', 'AND']
 
@@ -150,6 +151,40 @@ export async function parsePrerequisite(text)
 }
 
 /**
+ * 
+ * @param prereqContainer 
+ */
+export async function checkPrerequisite(prereqText, semester = -1)
+{
+    var parsedPrereqs = await parsePrerequisite(prereqText);
+
+    // add in user information
+    for (let i = 0; i < parsedPrereqs.length; i++)
+    {
+        if (!delimeters.includes(parsedPrereqs[i]))
+        {
+            var course = await user.getCourse(parsedPrereqs[i]);
+            if (course)
+            {
+                var courseSem = parseInt(course.semester, 10);
+                console.log('course Sem', courseSem < semester);
+
+                if (semester == -1 || (courseSem > -1 && courseSem < semester))
+                    parsedPrereqs[i] = true;
+                else 
+                    parsedPrereqs[i] = false;
+            }
+            else 
+            {
+                parsedPrereqs[i] = false;
+            }
+        }
+    }
+
+    return await solvePrerequisite(parsedPrereqs);
+}
+
+/**
  * Solves the parsedPrereq
  * @param parsedPrereq array prerequisite delimeters and 'courses,
  * courses taken are marked by true
@@ -239,12 +274,15 @@ export async function createCourseButton(courseCode)
 
 async function createSubstituteButton(conditionID)
 {
-    return $( document.createElement('li') )
-        .attr("code", 'substitute')
+    var button = $(await createCourseButton('+'))
+        .attr('code', 'substitute')
         .attr('substitute-conditionID', conditionID)
         .attr("modalID", 'course-directory')
-        .attr("modalBtn", "open")
-        .append( await createCourseButton('+') );
+        .attr("modalBtn", "open");
+
+    return $( document.createElement('li') )
+        .attr("code", 'substitute')
+        .append( button );
         // .click( function() { ENABLE.requirementCourse(this); });
 }
 
@@ -289,7 +327,7 @@ async function createSemesterSeason(season)
         .addClass('semester-season');
 
     var seasonButton = $( document.createElement('div') )
-        .addClass('btn')
+        .addClass('season-btn')
         .attr('season', season)
         .text(season)
         .css('color', colors[seasons.indexOf(season)]);
@@ -321,6 +359,7 @@ export async function createSemesterContainer(semester, season)
     var dropBox = $( document.createElement('div') )
         .addClass('drop-box')
         .attr('semester', semester)
+        .attr('new-semester', 'true')
         .append( await createSemesterTitle(semester) );
 
     var infoBox = $( document.createElement('div') )

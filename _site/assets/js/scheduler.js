@@ -10,6 +10,9 @@ export var user = new User();
 // load ajax for DOM in schedule.html
 $(document).ready(async function () {
     DATA.loadCourses().then ( function() {
+        // disclaimer
+        disclaimer();
+
         // enable jquery buttons
         ENABLE.search();
         ENABLE.pageNavigation();
@@ -17,6 +20,7 @@ $(document).ready(async function () {
         ENABLE.pastCourseInput();
         ENABLE.prerequisiteInfoInput();
         ENABLE.semesterInfoInput();
+        ENABLE.print()
         
         // Set up search functionality
         populateMajors();
@@ -24,6 +28,14 @@ $(document).ready(async function () {
         populateCourses();
     });
 });
+
+function disclaimer()
+{
+    $("#disclaimer-agreement").click( function() {
+        $("#schedule-content").show();
+        $("#disclaimer").slideUp(500);
+    })
+}
 
 
 
