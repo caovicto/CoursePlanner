@@ -9,10 +9,10 @@ export var user = new User();
 
 // load ajax for DOM in schedule.html
 $(document).ready(async function () {
-    DATA.loadCourses().then ( function() {
-        // disclaimer
-        disclaimer();
+    // disclaimer
+    disclaimer();
 
+    DATA.loadCourses().then ( function() {
         // enable jquery buttons
         ENABLE.search();
         ENABLE.pageNavigation();
@@ -31,6 +31,46 @@ $(document).ready(async function () {
 
 function disclaimer()
 {
+    TweenMax
+        .to( '#loading-title', 0.5 , {
+            ease: Power2.easeOut,
+            scaleY: .01,
+            // scaleX: 1
+        }).delay(4);
+
+    TweenMax
+        .to( '#loading-title', 0.5 , {
+            ease: Power2.easeOut,
+            // scaleY: .01,
+            scaleX: 0,
+        }).delay(4.5);
+
+
+    TweenMax
+    .to( '#loading-title', 0.1 , {
+        css: {
+            display: 'none'
+        }
+    }).delay(5);
+        
+    
+    TweenMax
+        .to( '#disclaimer', 1 , {
+            ease: Power2.easeOut,
+            css: {
+                opacity: 1
+            }
+        }).delay(5.2);
+
+    TweenMax
+        .to( '#disclaimer-agreement', 1 , {
+            ease: Power2.easeOut,
+            css: {
+                opacity: 1
+            }
+        }).delay(8);
+        
+
     $("#disclaimer-agreement").click( function() {
         $("#schedule-content").show();
         $("#disclaimer").slideUp(500);
