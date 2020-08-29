@@ -42,6 +42,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.css">
 
+
+
+
+
+<!-- DISCLAIMER -->
+<div class="content" id="disclaimer">
+    <div class="form-container" style="text-align: center;">
+        <div class='disclaimer'>
+            <h1>DISCLAIMER</h1>
+            <span>
+            All the information on this website is published in good faith and for general information purpose only. The Course Planner does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (https://caovicto.github.io/CoursePlanner/), is strictly at your own risk. will not be liable for any losses and/or damages in connection with the use of our website.
+        
+            Please be also aware that when you leave this website, other sites may have different privacy policies and terms which are beyond this control. Please be sure to check the Privacy Policies of these sites as well as their "Terms of Service" before engaging in any business or uploading any information.
+            </span>
+            <h2>Consent</h2>
+            <span>
+            By using this website, you hereby consent to this disclaimer and agree to its terms.
+            </span>
+        </div>
+     
+        <div class="btn" id="disclaimer-agreement" style="margin-top:5vh">I Agree</div>
+    </div>
+</div>
+
+
+<!-- CREDIT COUNT FOR STEP 4/5 -->
+<div id="credit-count" hidden>
+    <h3>Required Credits</h3>
+    <div id="required-credits"></div>
+    <h3>User Credits</h3>
+    <div id="user-credits"></div>
+</div>
+
 <!-- Modals -->
 <div class="modal" id="past-course-input" hidden>
     <div class="modal-background">
@@ -103,28 +136,6 @@ CSE803	3	current'"></textarea>
     </div>
 </div>
 
-
-
-<!-- DISCLAIMER -->
-<div class="content" id="disclaimer">
-    <div class="form-container unfulfilled" style="text-align: center;">
-        <div class='disclaimer'>
-            <h1>DISCLAIMER</h1>
-            <span>
-            All the information on this website is published in good faith and for general information purpose only. The Course Planner does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (https://caovicto.github.io/CoursePlanner2/), is strictly at your own risk. will not be liable for any losses and/or damages in connection with the use of our website.
-        
-            Please be also aware that when you leave this website, other sites may have different privacy policies and terms which are beyond this control. Please be sure to check the Privacy Policies of these sites as well as their "Terms of Service" before engaging in any business or uploading any information.
-            </span>
-            <h2>Consent</h2>
-            <span>
-            By using this website, you hereby consent to this disclaimer and agree to its terms.
-            </span>
-        </div>
-     
-        <div class="btn" id="disclaimer-agreement" style="margin-top:5vh">I Agree</div>
-    </div>
-</div>
-
 <!-- PAGES -->
 <div id="schedule-content" hidden>
     <!-- MAJOR -->
@@ -157,15 +168,6 @@ CSE803	3	current'"></textarea>
 
  
     </div>
-
-    <!-- CREDIT COUNT FOR STEP 4/5 -->
-    <div id="credit-count" hidden>
-        <h3>Required Credits</h3>
-        <div id="required-credits"></div>
-        <h3>User Credits</h3>
-        <div id="user-credits"></div>
-    </div>
-
 
     <!-- REQUIREMENTS -->
     <div class="content" step='4' hidden>
@@ -212,6 +214,7 @@ CSE803	3	current'"></textarea>
         </div>
         
         <h1>Complete Requirements</h1>
+
 
         <div class="content" id="requirement-list"></div>
     </div>
@@ -303,12 +306,11 @@ CSE803	3	current'"></textarea>
  
     </div>
 
-
     <!-- PAGE NAVIGATION -->
     <div id="prev" hidden><img src="assets/images/rightArrow.png"></div>
     <div id="next"><img src="assets/images/rightArrow.png"></div>
-
 </div>
+
 
 
 

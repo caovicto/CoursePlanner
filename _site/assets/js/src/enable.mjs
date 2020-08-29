@@ -7,6 +7,26 @@ import { parsePrerequisite } from './utilities.mjs';
 
 var shownCourses = new Set();   // showing course search
 
+/** GENERAL
+ * 
+ */
+
+export function creditScroll()
+{
+    $(document).scroll( function(){
+        var top = $(window).scrollTop();
+
+        $('#prev, #next').css('margin-top', top);
+
+        if ($("#credit-count").is(":visible"))
+        {
+            $('#credit-count').css('margin-top', top);
+        }
+
+    });
+}
+
+
 /** STEP 4
  * Updates the credit menu in requirements page
  */
@@ -156,6 +176,7 @@ async function next()
             $("#credit-count").show(500);
 
             break;
+            // return;
 
         // requirements
         case 4:
@@ -331,6 +352,13 @@ function onClose()
     if ($("[step='6']").is(":visible"))
         $("#development-semester-list").show(500);
 
+    $("#schedule-content").show(500, function () {
+        $('html, body').animate({
+            scrollTop: $(".modal").attr('offset')
+        });    
+    });
+    
+
     $("#prev").show(500);
     $("#next").show(500); 
 }
@@ -348,6 +376,9 @@ export async function modal()
 
         var modalID = "#"+$(this).attr('modalID');
 
+        console.log(this, $(this).position().top);
+        $(".modal").attr("offset", $(this).position().top);
+
         if (modalID == "#course-info")
         {
             $(modalID).find('table').remove();
@@ -360,6 +391,8 @@ export async function modal()
             if ($(modalID).find('table').length < 1)
                 $(table).insertAfter($(modalID).find('.modal-header'));
         }
+
+        $("#schedule-content").hide();
 
         $(modalID).show(500);
 

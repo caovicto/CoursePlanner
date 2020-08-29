@@ -45,18 +45,19 @@
 /**           TITLE             **/
 
 #loading-title {
-  margin-top: 40%;  
+  margin-top: 40vh;  
   h1 {
     color: #fff;
+    max-width: 50%;
     font-family: monospace;
-    font-size: 5vw;
+    font-size: 5vw !important;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: .15em solid $theme-orange; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: 0.5vw; /* Adjust as needed */
+    letter-spacing: 0.2vw; /* Adjust as needed */
     animation: 
-      typing 3s steps(20, end),
+      typing 3s steps(30, end),
       blink-caret .5s step-end infinite;
   }
   
@@ -197,6 +198,7 @@ ul {
 
 /**           DISCLAIMER          **/
 #disclaimer {
+  margin-top: 10vh;
   opacity: 0;
 
   #disclaimer-agreement {
@@ -367,9 +369,10 @@ ul {
 }
 
 #next {
-  position: fixed;
-  top: 45%;
-  right: 5%;
+  position: absolute;
+  top: 45vh;
+  right: 2vw;
+  margin: 0;
 
   width: 2vw;
   height: 2vw;
@@ -391,7 +394,7 @@ ul {
 
 #prev {
   @extend #next;
-  left: 5%;
+  left: 2vw;
 
   img {
     transform: rotateY(180deg);
@@ -453,22 +456,26 @@ ul {
     margin-top: 0;
   }
 
-  @include large {
-    max-width: 64rem;
-    // padding: 1rem 3rem;
-    margin: 0 auto;
-    font-size: 1.1rem;
+  .content {
+    padding: 5vw;
   }
 
-  @include medium {
-    // padding: 1rem 2rem;
-    font-size: 1.1rem;
-  }
+  // @include large {
+  //   max-width: 64rem;
+  //   // padding: 1rem 3rem;
+  //   margin: 0 auto;
+  //   font-size: 1.1rem;
+  // }
 
-  @include small {
-    // padding: 1rem 0.5rem;
-    font-size: 1rem;
-  }
+  // @include medium {
+  //   // padding: 1rem 2rem;
+  //   font-size: 1.1rem;
+  // }
+
+  // @include small {
+  //   // padding: 1rem 0.5rem;
+  //   font-size: 1rem;
+  // }
 
 }
 
@@ -488,13 +495,14 @@ ul {
     top:0;
     left:0;
   
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 
     background-color: #ccccccd0;
   }
 
   .modal-content {
+    // position: absolute;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -588,13 +596,15 @@ ul {
 }
 
 #credit-count {
-  position: fixed;
+  position: absolute;
   top: 1vw;
   right: 1vw;
+  height: fit-content;
+  width: fit-content;
 
   color: rgba(255, 255, 255, 0.7);
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(34, 34, 34, 0.8);
   border-color: rgba(255, 255, 255, 0.2);
 
   border-style: solid;

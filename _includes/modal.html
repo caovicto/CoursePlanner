@@ -1,0 +1,60 @@
+<!-- Modals -->
+<div class="modal" id="past-course-input" hidden>
+    <div class="modal-background">
+        <div class="modal-content">       
+            <h1 class="modal-header">Past Course Input</h1>
+
+<textarea id="past-course-input-box" col="100" rows="100" 
+placeholder="Capitalization and extraneous text doesn't matter, just make sure the course code and number are not separated.
+Copying and pasting degree navigator information is reccomended.
+
+examples:
+'cse431 cse460 cse803'
+
+'FS20: cse431, CSE460, CSE803'
+
+'FS20
+CSE431	3	current
+cse460	3	current
+CSE803	3	current'"></textarea>
+            
+
+            <div class="btn" modalID="past-course-input" modalBtn="close" id="past-course-submit"><div>Submit</div></div>
+            <div class="btn" modalID="past-course-input" modalBtn="close"><div>Close</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="course-directory" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Directory</h1>
+            <div class="search" id="course-search">
+                <input class="search-bar" type="text" autocomplete="off" id="course-search-bar" placeholder="Search Course Code">
+                <ul class="search-content" id="course-search-content"></ul>
+            </div>
+            
+            <div class="btn" modalID="course-directory" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="course-info" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <h1 class="modal-header">Course Information</h1>
+            
+            <div class="btn" modalID="course-info" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="alert" hidden>
+    <div class="modal-background">
+        <div class="modal-content">
+            <div id="alert-message"></div>
+            
+            <div class="btn" modalID="alert" modalBtn="close">Close</div>
+        </div>
+    </div>
+</div>

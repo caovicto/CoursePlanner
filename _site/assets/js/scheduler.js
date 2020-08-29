@@ -16,6 +16,7 @@ $(document).ready(async function () {
         // enable jquery buttons
         ENABLE.search();
         ENABLE.pageNavigation();
+        ENABLE.creditScroll();
         ENABLE.modal();
         ENABLE.pastCourseInput();
         ENABLE.prerequisiteInfoInput();
